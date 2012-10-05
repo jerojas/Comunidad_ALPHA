@@ -39,8 +39,9 @@
         <script src = "js/scripts.js"></script>
         <script src = "js/jquery-ui-1.8.23.custom.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.23.custom.css"/> 
-
-       
+         <link href='http://localhost:8084/PortalUNAC/web/imagenes/favicon.png' rel='shortcut icon' type='image/png'>    
+        
+     
     </head>
     <body>
         <div class="header"id ="header"> 

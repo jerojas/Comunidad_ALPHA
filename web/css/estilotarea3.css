@@ -1,0 +1,196 @@
+
+
+.formgeneral{
+    margin-left: 2px;
+}
+
+.campos{    
+    margin-bottom: 10px;
+}
+.label{
+    border: 1px solid black;
+    margin-left: 66px;
+    margin-top: 12px;
+    width: 150px;
+    
+}
+.btn{
+    text-align: center;        
+}
+.campos select{
+    width: 216px;
+}
+.etiqueta{
+    width: 100px;
+    display: block;
+    float:left;
+    color: black;    
+    margin-left: 10px;
+    font-family: serif;
+    font-weight: bold;
+}
+    
+.campos2{    
+    margin-bottom: 10px;
+    height: 40px;        
+}
+
+.campos2 input{    
+    position: relative;
+    top:8px;
+
+}
+
+
+body 
+{
+background-color: white;
+margin: 0px; padding: 0px
+
+}
+
+
+
+h2{
+text-align: center; 
+}
+h3{
+background-color: #F9F355;
+ border: 5px solid #70F51D;
+}
+
+#boton{
+
+background: yellow;
+
+}
+#submit{
+background: yellow;
+}
+
+.header{
+  
+    height: 60%;
+    padding: 5px;
+    width: 96%;
+    background-color: white;
+    margin-top: 5px;
+    margin-left: 15px;
+    border: 10px groove #87E680;
+    border-radius: 10px;
+   
+	 
+}
+.cuerpo{
+
+border: 1px solid black;
+    height: 90%;
+    padding: 5px;
+    width: 96%;
+        margin-top: 5px;
+    margin-left: 15px;
+    border: 10px outset #cccccc; 
+   background-color: whitesmoke; 
+}
+#ingresar{
+
+width: 40%;
+height: 30%;
+  float: right;
+   margin-top: -94px;
+    margin-left: 833px;
+}
+
+#logo{
+
+    width: 40%; 
+   height: 30%;
+
+
+}
+#entrar{
+background: yellow;
+}
+.formulario{
+
+     background: none repeat scroll 0 0 #B7E4B4;
+    border: 1px inset whitesmoke;
+    border-radius: 30px 30px 30px 30px;
+    height: auto;
+    margin-left: 845px;
+    margin-top: 1px;
+    padding: 26px;
+    width:397px;
+
+}
+
+#tabs{
+
+   bottom: -580px;
+    margin-right: 488px;
+    margin-top: -284px;
+    top: 441px;
+    height: 75%;
+     
+	}
+
+	#capaerrores{
+	background: #E6E6AA;
+    border: 1px solid red;
+    height: auto;
+    padding: 5px;
+    width: auto;
+	color: red;
+	 
+	}
+	
+#acor{
+background-color: #FFEA86;
+ border: 5px solid #D02020;
+padding: 5px;
+}
+
+#dialog{    
+    background-color: #f8f8d1;
+    width: 500px;
+}
+
+#ok{
+    color: red;        
+    font-family: monospace;
+}
+
+.active {    
+    border-color: red;
+    color: black;
+    background-color: #f8f8d1;
+}
+
+#mensajerror{
+    
+        width: 250px;
+      margin-left: 848px;
+    color: red;
+    height: 33px;
+    margin-top: -28px
+
+}
+
+#admin{
+   float: right;
+    height: 39%;
+    margin-left: 1154px;
+    margin-top: -78px;
+    width: 15%;
+    
+}
+
+#est{
+    float: right;
+    height: 39%;
+    margin-left: 1154px;
+    margin-top: -78px;
+    width: 15%;
+}
+
+

@@ -4,7 +4,7 @@
         <ul> 
             <li class="arrow"></li> 
             <li><a id="menuAdminOP1">Habilitar Usuarios</a></li> 
-            <li><a>Administrar Usuarios</a></li> 
+            <li><a href="ControladorUsuarios?accion=listar">Administrar Usuarios</a></li> 
             <li><a>Asociar estudiantes</a>                             	
         </ul>	
     </li>

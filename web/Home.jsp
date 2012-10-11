@@ -20,7 +20,8 @@
         <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.23.custom.css"/> 
         <script src = "js/jquery-1.8.0.min.js"></script>
         <script src = "js/jquery-ui-1.8.23.custom.min.js"></script>
-        <script src="js/jMenu.jquery.js"></script>         
+        <script src="js/jMenu.jquery.js"></script> 
+         <link href="imagenes/favicon.png" type="image/x-icon" rel="shortcut icon" />
         <script type="text/javascript"> 
             $(document).ready(function(){ 
                 // simple jMenu plugin called 

@@ -68,7 +68,7 @@ public class ValidarIngreso extends HttpServlet {
 
                 //Definición de Sentencia SQL
                 
-                sql = "SELECT nombre, perfil FROM usuarios WHERE login = '" + correo + "' AND "
+                sql = "SELECT nombre, perfil, estado FROM usuarios WHERE login = '" + correo + "' AND "
                         + "clave = '" + pass + "'";
 
                 //Ejecutar sentencia
@@ -78,16 +78,25 @@ public class ValidarIngreso extends HttpServlet {
                 //si el resultado tiene un dato el usuario con el login y pass existe, autenticación valida.
                 if (resultado.next())                     
                 {
+                    String estado = "";
                     System.out.println("autenticado ...");
                     //enviamos el nombre y el perfil del usuario a la pagina home
-                    request.setAttribute("usuario", resultado.getString("nombre"));                    
+                    estado = resultado.getString("estado");
+                    System.out.println("estado = " + estado);
+                    
+                    if ("0".equals(estado)){
+                      request.setAttribute("estado", resultado.getString("estado"));
+                       vista = request.getRequestDispatcher("index.jsp");
+                    }else{
+                     request.setAttribute("usuario", resultado.getString("nombre"));                    
                     request.setAttribute("perfil", resultado.getString("perfil")); 
-                    vista = request.getRequestDispatcher("Home.jsp");
+                    vista = request.getRequestDispatcher("Home.jsp");   
+                    }
+                    
                     //vista = request.getRequestDispatcher("Home.jsp");
                    //request.getRequestDispatcher("/Index.jsp").include(request, response);
 
-                } 
-                else {
+                } else {
                     System.out.println("Error usuario no existe ...");
                     vista = request.getRequestDispatcher("index.jsp");                    
                 }

@@ -5,15 +5,21 @@
 --%>
 
 <%
-    String nombre = request.getParameter("correo");
+
+    String correo = request.getParameter("correo");
     String email = (String)request.getAttribute("login");
     Integer guardo = (Integer) request.getAttribute("guardoOK");
+    String  estado = (String) request.getAttribute("estado");
     String mensaje = "";
     String mensaje2 = "";
     String mensaje3 = "";
+     String mensaje4 = "";
+     String accion = "insertar";//la acción será un nuevo registro 
+     String accion2 = "validarusuario";
     
-    
-    if (nombre != null && guardo == null) {
+    if (estado != null){
+         mensaje4 = "El usuario esta deshabilitado "; 
+     }else if (correo != null && guardo == null) {
         mensaje = "Usuario y/o Contraseña incorrecta";
     }
     
@@ -24,6 +30,7 @@
     if (email != null ) {
         mensaje3 = "El usuario ya existe \n Por favor digite otro correo ";
     }
+     
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -66,6 +73,7 @@
             <div id="mensajerror">
                  <br>
                         <b><font color="RED"><%=mensaje%></font></b>
+                        <b><font color="RED"><%=mensaje4%></font></b>
                        
                         
                 </div>
@@ -119,11 +127,10 @@
                         <br>                        
                         <b><font color="RED"><%=mensaje2%></font></b>
                          <b><font color="RED"><%=mensaje3%></font></b>
-                          
-                        
+                                                  
                         </div>
                     </fieldset>
-
+                <input type="hidden" name="accion" value="<%=accion%>" />
                 </form>
 
                 <div class = "ale" id = "capaerrores"  style="display: none;" >

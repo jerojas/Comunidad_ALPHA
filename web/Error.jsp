@@ -9,7 +9,8 @@
 <html>
     <head>        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
-        <link rel="stylesheet" href="css/styles.css" type="text/css" >
+        <link rel="stylesheet" href="css/estilotarea3.css" type="text/css" >
+         <link href="imagenes/favicon.png" type="image/x-icon" rel="shortcut icon" />
     </head>
 </head>
 <body>

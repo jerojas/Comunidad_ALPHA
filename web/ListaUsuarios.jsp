@@ -11,6 +11,8 @@
 //Obtener el arreglo de estudiantes enviado en la solicitud
     ArrayList<Usuario> usuarios = (ArrayList<Usuario>) request.getAttribute("usuarios");
     int contador = 0;
+    String mensaje = request.getAttribute("mensaje") == null ? "" : (String) request.getAttribute("mensaje");
+    String estado = "";
 %>
 <!DOCTYPE html>
 <html>
@@ -110,7 +112,7 @@
                         <%= u.getEstado()%>
                     </td>
                     <td>
-                        <a href="ControladorUsuarios?accion=eliminar&ID=<%=u.getEmail()%>">Eliminar</a>
+                        <a href="ControladorUsuarios?accion=eliminar&IDs=<%=u.getEmail()%> &perfil=<%=u.getIdPerfil()%>">Eliminar</a>
                     </td>
                     <td>
                         <a href="ControladorUsuarios?accion=editar&ID=<%=u.getEmail()%>">Editar</a>
@@ -124,10 +126,13 @@
 
         </table>
         <br>
+        <p style="text-align:center;color: red">
+            <%=mensaje%>
+        </p>
         <hr>
     <center>
      
-        
+       
     </center>
          </div>
 </body>

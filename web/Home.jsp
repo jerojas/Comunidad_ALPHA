@@ -15,7 +15,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/estilotarea3.css" type="text/css" >
-        <title>HOME</title>        
+        <title>Inicio</title>        
         <link rel="stylesheet" type="text/css" href="css/jMenu.jquery.css" media="screen" /> 
         <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.23.custom.css"/> 
         <script src = "js/jquery-1.8.0.min.js"></script>

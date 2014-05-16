@@ -1,3 +1,5 @@
+package Controlador;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -11,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author JEOVANY
  */
+@WebServlet(name = "ValidarIngreso", urlPatterns = {"/ValidarIngreso"})
 public class ValidarIngreso extends HttpServlet {
 
     /**
@@ -48,8 +52,8 @@ public class ValidarIngreso extends HttpServlet {
          
           // Datos de la conexion
           String driver = "com.mysql.jdbc.Driver";
-            String urlDB = "jdbc:mysql://localhost/dbportalunac";
-            String userBD = "PortalUNAC";
+            String urlDB = "jdbc:mysql://localhost:3307/dbportalunac";
+            String userBD = "root";
             String passBD = "root";
             
              //Objetos para manipular la conexion y los datos

@@ -1,3 +1,5 @@
+package Controlador;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -58,7 +60,8 @@ public class ControladorUsuarios extends HttpServlet {
         } else if (accion.equals("modificar")) {
             //modificar los datos de un usuario
             modificar(request, response);
-        } else {
+        } 
+        else {
             request.getRequestDispatcher("/Error.jsp").include(request, response);
         }
     }
@@ -124,8 +127,8 @@ public class ControladorUsuarios extends HttpServlet {
         RequestDispatcher vista;
         //Datos de la conexion
         String driver = "com.mysql.jdbc.Driver";
-        String urlDB = "jdbc:mysql://localhost/dbportalunac";
-        String userBD = "PortalUNAC";
+        String urlDB = "jdbc:mysql://localhost:3307/dbportalunac";
+        String userBD = "root";
         String passBD = "root";
 
         //Objetos para manipular la conexion y los datos
@@ -209,8 +212,8 @@ public class ControladorUsuarios extends HttpServlet {
         //Datos de la conexion
 
         String driver = "com.mysql.jdbc.Driver";
-        String urlDB = "jdbc:mysql://localhost/dbportalunac";
-        String userBD = "PortalUNAC";
+        String urlDB = "jdbc:mysql://localhost:3307/dbportalunac";
+        String userBD = "root";
         String passBD = "root";
 
         //Objetos para manipular la conexion y los datos
@@ -264,8 +267,8 @@ public class ControladorUsuarios extends HttpServlet {
         RequestDispatcher vista;
         //Datos de la conexion
         String driver = "com.mysql.jdbc.Driver";
-        String urlDB = "jdbc:mysql://localhost/dbportalunac";
-        String userBD = "PortalUNAC";
+        String urlDB = "jdbc:mysql://localhost:3307/dbportalunac";
+        String userBD = "root";
         String passBD = "root";
 
         //Objetos para manipular la conexion y los datos
@@ -334,8 +337,8 @@ public class ControladorUsuarios extends HttpServlet {
         RequestDispatcher vista;
         //Datos de la conexion
         String driver = "com.mysql.jdbc.Driver";
-        String urlDB = "jdbc:mysql://localhost/dbportalunac";
-        String userBD = "PortalUNAC";
+        String urlDB = "jdbc:mysql://localhost:3307/dbportalunac";
+        String userBD = "root";
         String passBD = "root";
 
         //Objetos para manipular la conexion y los datos
@@ -399,8 +402,8 @@ public class ControladorUsuarios extends HttpServlet {
         RequestDispatcher vista;
         //Datos de la conexion
         String driver = "com.mysql.jdbc.Driver";
-        String urlDB = "jdbc:mysql://localhost/dbportalunac";
-        String userBD = "PortalUNAC";
+        String urlDB = "jdbc:mysql://localhost:3307/dbportalunac";
+        String userBD = "root";
         String passBD = "root";
 
         //Objetos para manipular la conexion y los datos
@@ -452,4 +455,6 @@ public class ControladorUsuarios extends HttpServlet {
             }
         }
     }
+
+    
 }

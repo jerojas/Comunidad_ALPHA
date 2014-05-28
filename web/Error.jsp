@@ -24,7 +24,7 @@
     <div id='content' style='text-align:center'>
         <h1>Validación del Login </h1>
         <p class='mensajeT1'>Error !!</p><br>
-        <a href='/PortalUNAC'>Home</a>
+        <a href='/Comunidad_ALPHA'>Home</a>
     </div>
 </body>
 </html>

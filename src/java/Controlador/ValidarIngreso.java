@@ -44,7 +44,7 @@ public class ValidarIngreso extends HttpServlet {
         if (accion != null) {
             response.sendRedirect("http://www.unac.edu.co");
         } else {
-            String correo = request.getParameter("correo");
+            String user = request.getParameter("user");
             String pass = request.getParameter("password");
             
             RequestDispatcher vista = null;
@@ -52,7 +52,7 @@ public class ValidarIngreso extends HttpServlet {
          
           // Datos de la conexion
           String driver = "com.mysql.jdbc.Driver";
-            String urlDB = "jdbc:mysql://localhost:3307/dbportalunac";
+            String urlDB = "jdbc:mysql://localhost:3307/db_comunidad_alpha";
             String userBD = "root";
             String passBD = "root";
             
@@ -72,8 +72,8 @@ public class ValidarIngreso extends HttpServlet {
 
                 //Definición de Sentencia SQL
                 
-                sql = "SELECT nombre, perfil, estado FROM usuarios WHERE login = '" + correo + "' AND "
-                        + "clave = '" + pass + "'";
+                sql = "SELECT * FROM usuarios WHERE usuario = '" + user + "' AND "
+                        + "password = '" + pass + "'";
 
                 //Ejecutar sentencia
                 sentencia = conexion.createStatement();
@@ -82,23 +82,13 @@ public class ValidarIngreso extends HttpServlet {
                 //si el resultado tiene un dato el usuario con el login y pass existe, autenticación valida.
                 if (resultado.next())                     
                 {
-                    String estado = "";
+                   
                     System.out.println("autenticado ...");
-                    //enviamos el nombre y el perfil del usuario a la pagina home
-                    estado = resultado.getString("estado");
-                    System.out.println("estado = " + estado);
-                    
-                    if ("0".equals(estado)){
-                      request.setAttribute("estado", resultado.getString("estado"));
-                       vista = request.getRequestDispatcher("index.jsp");
-                    }else{
-                     request.setAttribute("usuario", resultado.getString("nombre"));                    
-                    request.setAttribute("perfil", resultado.getString("perfil")); 
+                   
+                     request.setAttribute("usuario", resultado.getString ("nombre"));                    
+                   
                     vista = request.getRequestDispatcher("Home.jsp");   
-                    }
-                    
-                    //vista = request.getRequestDispatcher("Home.jsp");
-                   //request.getRequestDispatcher("/Index.jsp").include(request, response);
+                 
 
                 } else {
                     System.out.println("Error usuario no existe ...");

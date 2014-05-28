@@ -10,86 +10,66 @@ package Entidades;
  */
 public class Usuario {
 
-    String email, clave, nombre, apellido, telefono, genero;
-    int idPerfil, estado;
+    String nombre, apellidos, usuario, password;
+    int cedula;
 
-    public Usuario(String email, String clave, String nombre, String apellido, String telefono, String genero, int idPerfil, int estado) {
-        this.email = email;
-        this.clave = clave;
+    public Usuario(int cedula, String nombre, String apellidos, String usuario, String password) {
+        this.cedula = cedula;
         this.nombre = nombre;
-        this.apellido = apellido;
-        this.telefono = telefono;
-        this.genero = genero;
-        this.idPerfil = idPerfil;
-        this.estado = estado;
+        this.apellidos = apellidos;
+        this.usuario = usuario;
+        this.password = password;
+        
     }
 
     public Usuario() {
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getClave() {
-        return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public int getIdPerfil() {
-        return idPerfil;
-    }
-
-    public void setIdPerfil(int idPerfil) {
-        this.idPerfil = idPerfil;
     }
 
     public String getNombre() {
         return nombre;
     }
 
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public int getCedula() {
+        return cedula;
+    }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setCedula(int cedula) {
+        this.cedula = cedula;
+    }
+    
+    
+
+    
+
+    
     
     
 }

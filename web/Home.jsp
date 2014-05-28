@@ -7,7 +7,7 @@
 
 <%
     String nombre = (String)request.getAttribute("usuario");    
-    String perfil = (String)request.getAttribute("perfil");
+    
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -49,39 +49,20 @@
             </div>
         </div>
         <div class="cuerpo" id="content">
-        <%
-            if (perfil.equals("1")) {
-        %>
+        
+            
+       
         <jsp:include page="menuAdmin.jsp"/>
-        <%} else if (perfil.equals("2")) {
-        %>
-        <jsp:include page="menuEstudiante.jsp"/>
-        <%   }else if (perfil.equals("3")) {
-        %>
-        <jsp:include page="menuProfesor.jsp"/>
-        <%   }else if (perfil.equals("4")) {
-        %>
-        <jsp:include page="menuVisitante.jsp"/>
-        <%   }
-        %>
+        
         
         <div id='content' style='text-align:center'>
             <h1>Validación del Login </h1>
-              <%
-            if (perfil.equals("1")) {
-        %>
+              
+       
        <h2>Bienvenido Señor Administrador </h2>
-        <%} else if (perfil.equals("2")) {
-        %>
-       <h1>Bienvenido Señor Estudiante </h1>
-        <%   }else if (perfil.equals("3")) {
-        %>
-       <h1>Bienvenido Señor Profesor </h1>
-        <%   }else if (perfil.equals("4")) {
-        %>
-        <h1>Bienvenido Señor Visitante </h1>
-        <%   }
-        %>
+       
+            
+       
         
             <p class='mensajeT2'>Hola <%=nombre%>, has ingresado exitosamente !</p><br>
             <a href='/PortalUNAC'>Volver</a>

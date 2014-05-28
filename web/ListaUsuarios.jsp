@@ -1,18 +1,20 @@
 <%-- 
     Document   : ListaUsuarios.jsp
     Created on : 08-oct-2012, 1:14:08
-    Author     : Guillermo
+    Author     : Jeovany
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page language="java" import="java.util.*,Entidades.Usuario" %>
 
 <%
+    
+    
 //Obtener el arreglo de estudiantes enviado en la solicitud
     ArrayList<Usuario> usuarios = (ArrayList<Usuario>) request.getAttribute("usuarios");
     int contador = 0;
     String mensaje = request.getAttribute("mensaje") == null ? "" : (String) request.getAttribute("mensaje");
-    String estado = "";
+    
 %>
 <!DOCTYPE html>
 <html>
@@ -63,14 +65,11 @@
             <caption>Usuarios Registrados</caption>
             <thead>
                 <tr>
-                    <th scope="col">email</th>
-                    <th scope="col">Clave</th>
+                    <th scope="col">Cédula</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Apellido</th>
-                    <th scope="col">Teléfono</th>
-                    <th scope="col">Género</th>
-                    <th scope="col">Perfil</th>
-                    <th scope="col">Estado</th>
+                    <th scope="col">Apellidos</th>
+                    <th scope="col">Usuario</th>
+                    
                 </tr>
             </thead>
             <%
@@ -88,34 +87,25 @@
                 <tr class="odd">                               
                     <%}%>
                     <td>
-                        <%= u.getEmail()%>
-                    </td>
-                    <td>
-                        <%= u.getClave()%>
+                        <%= u.getCedula()%>
                     </td>
                     <td>
                         <%= u.getNombre()%>
                     </td>
                     <td>
-                        <%= u.getApellido()%>
+                        <%= u.getApellidos()%>
                     </td>
                     <td>
-                        <%= u.getTelefono()%>
+                        <%= u.getUsuario()%>
+                    </td>
+                                      
+                   
+                   
+                    <td>
+                        <a href="ControladorUsuarios?accion=eliminar&IDs=<%=u.getUsuario()%>">Eliminar</a>
                     </td>
                     <td>
-                        <%= u.getGenero()%>
-                    </td>
-                    <td>
-                        <%= u.getIdPerfil()%>
-                    </td>
-                    <td>
-                        <%= u.getEstado()%>
-                    </td>
-                    <td>
-                        <a href="ControladorUsuarios?accion=eliminar&IDs=<%=u.getEmail()%> &perfil=<%=u.getIdPerfil()%>">Eliminar</a>
-                    </td>
-                    <td>
-                        <a href="ControladorUsuarios?accion=editar&ID=<%=u.getEmail()%>">Editar</a>
+                        <a href="ControladorUsuarios?accion=editar&ID=<%=u.getUsuario()%>">Editar</a>
                     </td>
                 </tr>
             </tbody>
@@ -126,9 +116,13 @@
 
         </table>
         <br>
+        <p style="text-align:center">
+            <a href="NewEditUsuario.jsp">Ingresar Usuario Nuevo </a>  
+        </p>
         <p style="text-align:center;color: red">
             <%=mensaje%>
         </p>
+        
         <hr>
     <center>
      

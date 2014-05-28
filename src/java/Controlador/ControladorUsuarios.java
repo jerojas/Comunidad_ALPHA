@@ -8,7 +8,7 @@ package Controlador;
 import Entidades.Usuario;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ControladorUsuarios", urlPatterns = {"/ControladorUsuarios"})
 public class ControladorUsuarios extends HttpServlet {
+    
 
     /**
      * Processes requests for both HTTP
@@ -38,7 +39,13 @@ public class ControladorUsuarios extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * 
+     * 
      */
+    
+    Conexion conBD = null;//objeto conexión
+    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
@@ -50,18 +57,23 @@ public class ControladorUsuarios extends HttpServlet {
             insertar(request, response);
         } else if (accion.equals("listar")) {
             //ver todos los usuarios del portal
-            todos(request, response);
+        todos(request, response);
         } else if (accion.equals("eliminar")) {
             //eliminar un usuario
             eliminar(request, response);
         } else if (accion.equals("editar")) {
             //Solicita pagina para editar
             buscar_for_editar(request, response);
-        } else if (accion.equals("modificar")) {
+        
+        }else if (accion.equals("modificar")) {
             //modificar los datos de un usuario
             modificar(request, response);
-        } 
-        else {
+        
+       } else if (accion.equals("nuevo")) {
+            //modificar los datos de un usuario
+            nuevo(request, response);
+        
+       } else {
             request.getRequestDispatcher("/Error.jsp").include(request, response);
         }
     }
@@ -115,19 +127,20 @@ public class ControladorUsuarios extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void insertar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void insertar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
+      
         String nombre = request.getParameter("nombre");
         String ape = request.getParameter("ape");
-        String correoo = request.getParameter("correoo");
+        String usuario = request.getParameter("user");
         String pass = request.getParameter("passwor");
-        String tel = request.getParameter("tel");
-        String genero = request.getParameter("genero");
-        String perfil = "4"; //visitante
+        String cedula = request.getParameter("cedula");
+        
+      
 
         RequestDispatcher vista;
         //Datos de la conexion
         String driver = "com.mysql.jdbc.Driver";
-        String urlDB = "jdbc:mysql://localhost:3307/dbportalunac";
+        String urlDB = "jdbc:mysql://localhost:3307/db_comunidad_alpha";
         String userBD = "root";
         String passBD = "root";
 
@@ -135,8 +148,7 @@ public class ControladorUsuarios extends HttpServlet {
         Connection con = null;//Objeto para la conexion
         Statement sentencia = null;//Objeto para definir y ejecutar las consultas sql
         int resultado = 0;//resultado de las inserción sql
-        ResultSet resultado2 = null;
-        String sql = "";
+      String sql = "";
 
         try {
             //CARGAR DRIVER
@@ -146,49 +158,19 @@ public class ControladorUsuarios extends HttpServlet {
             con = DriverManager.getConnection(urlDB, userBD, passBD);
             System.out.println("Conectado ...");
 
-            //Definición de Sentencia SQL
-            sql = "SELECT login FROM usuarios WHERE login = '" + correoo + "'";
 
-            sentencia = con.createStatement();
-
-            resultado2 = sentencia.executeQuery(sql);
-
-            if (resultado2.next()) {
-
-                request.setAttribute("login", resultado2.getString("login"));
-
-                vista = request.getRequestDispatcher("index.jsp");
-                vista.forward(request, response);
-            } else {
-
-                sql = "INSERT INTO usuarios(login,clave,estado,nombre,apellidos,telefono,genero,"
-                        + "perfil) VALUES ('" + correoo + "','" + pass + "',0,'" + nombre + "','" + ape
-                        + "','" + tel + "'," + genero + "," + perfil + ")";
+                sql = "INSERT INTO usuarios VALUES (" + cedula + ",'" + nombre + "','" + ape + "','" + usuario + "','" + pass + "')";
+              
 
                 sentencia = con.createStatement();
                 resultado = sentencia.executeUpdate(sql);
-                System.out.println(resultado);//numero de filas afectadas
+                
+                
                 request.setAttribute("guardoOK", resultado);
-
-                vista = request.getRequestDispatcher("index.jsp");
-                vista.forward(request, response);
-
-            }
-
-            //Ejecutar sentencia
-            sentencia = con.createStatement();
-            resultado = sentencia.executeUpdate(sql);
-
-            System.out.println(resultado);//numero de filas afectadas
-            request.setAttribute("guardoOK", resultado);
-            vista = request.getRequestDispatcher("index.jsp");
-            vista.forward(request, response);
-        } catch (ClassNotFoundException ex) {
-            System.out.println("No se ha podido cargar el Driver de MySQL");
-            //request.getRequestDispatcher("/Error.jsp").include(request, response);
-            //request.getRequestDispatcher("/Error.jsp").forward(request, response);
-            response.sendRedirect("Error.jsp");
-        } catch (SQLException ex) {
+               vista = request.getRequestDispatcher("/NewEditUsuario.jsp");
+               vista.forward(request, response);
+               
+            } catch (SQLException ex) {
             System.out.println("No se ha podido establecer la conexión, o el SQL esta mal formado " + sql);
             request.getRequestDispatcher("/Error.jsp").forward(request, response);
         } finally {
@@ -197,10 +179,7 @@ public class ControladorUsuarios extends HttpServlet {
                 if (sentencia != null) {
                     sentencia.close();
                 }
-                //cerrar conexion
-                if (con != null) {
-                    con.close();
-                }
+//                
             } catch (SQLException ex) {
                 request.getRequestDispatcher("/Error.jsp").include(request, response);
             }
@@ -211,10 +190,11 @@ public class ControladorUsuarios extends HttpServlet {
     private void todos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //Datos de la conexion
 
-        String driver = "com.mysql.jdbc.Driver";
-        String urlDB = "jdbc:mysql://localhost:3307/dbportalunac";
-        String userBD = "root";
-        String passBD = "root";
+            String driver = "com.mysql.jdbc.Driver";
+            String urlDB = "jdbc:mysql://localhost:3307/db_comunidad_alpha";
+            String userBD = "root";
+            String passBD = "root";
+            
 
         //Objetos para manipular la conexion y los datos
         Connection con = null;//Objeto para la conexion
@@ -230,7 +210,7 @@ public class ControladorUsuarios extends HttpServlet {
             System.out.println("Conectado ...");
 
             //Definición de Sentencia SQL
-            sql = "SELECT login,clave,estado,nombre,apellidos,telefono,genero,perfil FROM usuarios";
+            sql = "SELECT * FROM usuarios";
 
             //Ejecutar sentencia
             sentencia = con.createStatement();
@@ -240,9 +220,9 @@ public class ControladorUsuarios extends HttpServlet {
             ArrayList Usuarios = new ArrayList();
             while (resultado.next()) //si el resultado tiene datos empezar a guardarlos.
             {
-                Usuario e = new Usuario(resultado.getString(1), resultado.getString(2),
-                        resultado.getString(4), resultado.getString(5), resultado.getString(6), resultado.getString(7),
-                        resultado.getInt(8), resultado.getInt(3));
+                Usuario e = new Usuario(resultado.getInt(1), resultado.getString(2),
+                        resultado.getString(3), resultado.getString(4), resultado.getString(5));
+                       
                 //Agregamos el estudiante al arrelo
                 Usuarios.add(e);
             }
@@ -267,7 +247,7 @@ public class ControladorUsuarios extends HttpServlet {
         RequestDispatcher vista;
         //Datos de la conexion
         String driver = "com.mysql.jdbc.Driver";
-        String urlDB = "jdbc:mysql://localhost:3307/dbportalunac";
+        String urlDB = "jdbc:mysql://localhost:3307/db_comunidad_alpha";
         String userBD = "root";
         String passBD = "root";
 
@@ -286,18 +266,17 @@ public class ControladorUsuarios extends HttpServlet {
             System.out.println("Conectado ...");
 
             //OBTENER EL DATO A ELIMINAR
-            String emailUsuario = request.getParameter("IDs");
-            String perfil = request.getParameter("perfil");
+            String usuario = request.getParameter("IDs");
             
-            if ("1".equals(perfil)){
+            
+            if (usuario == "jerojas"){
                 
-               System.out.println("Administrador no se puede Borrar !");
             request.setAttribute("mensaje", "Imposible borrar Administrador !");
             
             }else{
                 
            //Definición de Sentencia SQL
-            sql = "DELETE FROM USUARIOS WHERE login ='" + emailUsuario + "'";
+            sql = "DELETE FROM USUARIOS WHERE usuario ='" + usuario + "'";
 
             //Ejecutar sentencia
             sentencia = con.createStatement();
@@ -320,89 +299,110 @@ public class ControladorUsuarios extends HttpServlet {
             request.getRequestDispatcher("/Error.jsp").forward(request, response);
         }
     }
-
-    private void editar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    private void nuevo(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    private void salir(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    private void buscar_for_editar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher vista;
+    
+     private void buscar_for_editar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         //Datos de la conexion
-        String driver = "com.mysql.jdbc.Driver";
-        String urlDB = "jdbc:mysql://localhost:3307/dbportalunac";
-        String userBD = "root";
-        String passBD = "root";
+       
 
         //Objetos para manipular la conexion y los datos
         Connection con = null;//Objeto para la conexion
         Statement sentencia = null;//Objeto para definir y ejecutar las consultas sql
-        ResultSet resultado = null;//resultado de las inserción sql
+        ResultSet resultado = null;//Objeto para obtener los resultados de las consultas sql
         String sql = "";
+        
+        
+         String driver = "com.mysql.jdbc.Driver";
+        String urlDB = "jdbc:mysql://localhost:3307/db_comunidad_alpha";
+        String userBD = "root";
+        String passBD = "root";
 
         //Objeto Usuario, donde se guardará la información del registro a editar
         Usuario e = null;
         try {
-            //CARGAR DRIVER
-            Class.forName(driver);
+            
+           Class.forName(driver);
+
             //ESTABLECER CONEXION
             con = DriverManager.getConnection(urlDB, userBD, passBD);
             System.out.println("Conectado ...");
+           
             //OBTENER EL DATO A CONSULTAR
-            String emailUsuario = request.getParameter("ID");
+            String codigo = request.getParameter("ID");
 
             //Definición de Sentencia SQL
-            sql = "SELECT * FROM usuarios WHERE login ='" + emailUsuario + "'";
+            sql = "SELECT * FROM usuarios  WHERE usuario = '" + codigo + "'";
             //Ejecutar sentencia
             sentencia = con.createStatement();
             resultado = sentencia.executeQuery(sql);
 
-            // VER SI HAY RESULTADODOS
+            // VER SI HAY RESULTADOS
             while (resultado.next()) {
-                e = new Usuario(resultado.getString(1), resultado.getString(2),
-                        resultado.getString(4), resultado.getString(5), resultado.getString(6), resultado.getString(7),
-                        resultado.getInt(8), resultado.getInt(3));
+                e = new Usuario(resultado.getInt(1), resultado.getString(2), resultado.getString(3), resultado.getString(4),resultado.getString(5));
                 break; //debe haber un solo registro.
             }
-            // Agregar el usuario a la solicitud
+            // Agregar el producto a la solicitud
             request.setAttribute("usuario", e);
+
+            
+
+            //Ejecutar sentencia
+            sentencia = con.createStatement();
+            resultado = sentencia.executeQuery(sql);
+
+           
 
             //redirigir la solicitud a la página JSP
             request.getRequestDispatcher("/NewEditUsuario.jsp").include(request, response);
             //cerrar la conexion
-            con.close();
-        } catch (ClassNotFoundException ex) {
-            System.out.println("No se ha podido cargar el Driver de MySQL");
-            //request.getRequestDispatcher("/Error.jsp").forward(request, response);
-            response.sendRedirect("Error.jsp");
+            //con.close();
+        /*
+             * } catch (ClassNotFoundException ex) { System.out.println("No se
+             * ha podido cargar el Driver de MySQL");
+             * //request.getRequestDispatcher("/Error.jsp").forward(request,
+             * response); response.sendRedirect("Error.jsp");
+             */
         } catch (SQLException ex) {
             System.out.println("No se ha podido establecer la conexión, o el SQL esta mal formado " + sql);
             request.getRequestDispatcher("/Error.jsp").forward(request, response);
         }
     }
 
+    
+    private void nuevo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+    Connection con = null;//Objeto para la conexion
+        Statement sentencia = null;//Objeto para definir y ejecutar las consultas sql
+        String sql = "";
+
+        ResultSet resultado = null;//Objeto para obtener los resultados de las consultas sql
+        con = conBD.getCConexion();
+        System.out.println("Conectado ...");
+        request.getRequestDispatcher("/NewEditUsuario.jsp").forward(request, response);
+    
+    
+    }
+
+    private void salir(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+   
+
     private void modificar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
 
+        String cedula = request.getParameter("cedula");
         String nombre = request.getParameter("nombre");
         String ape = request.getParameter("ape");
-        String correoo = request.getParameter("id");
+        
+        String usuario = request.getParameter("id");
         String pass = request.getParameter("passwor");
-        String tel = request.getParameter("tel");
-        String genero = request.getParameter("genero");
-        String estado = request.getParameter("estado");
-        String perfil = request.getParameter("perfil");
+        
+        
 
         RequestDispatcher vista;
         //Datos de la conexion
         String driver = "com.mysql.jdbc.Driver";
-        String urlDB = "jdbc:mysql://localhost:3307/dbportalunac";
+        String urlDB = "jdbc:mysql://localhost:3307/db_comunidad_alpha";
         String userBD = "root";
         String passBD = "root";
 
@@ -422,14 +422,11 @@ public class ControladorUsuarios extends HttpServlet {
             System.out.println("Conectado ...");
 
             //Definición de Sentencia SQL
-            sql = "UPDATE usuarios SET nombre ='" + nombre + "', "
+            sql = "UPDATE usuarios SET cedula =" + cedula + ", "
+                    + "nombre='" + nombre + "', "
                     + "apellidos='" + ape + "', "
-                    + "telefono='" + tel + "', "
-                    + "clave='" + pass + "', "
-                    + "genero=b'" + genero + "', " //el tipo de dato es un bit (0 o 1)
-                    + "estado=b'" + estado + "', " //el tipo de dato es un bit (0 o 1)
-                    + "perfil=" + perfil + " "
-                    + "WHERE login ='" + correoo + "'";
+                    + "password='" + pass + "' "
+                    + "WHERE usuario ='" + usuario + "'";
 
 
             //Ejecutar sentencia

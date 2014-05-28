@@ -1,22 +1,10 @@
 package Controlador;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 
 /**
  *
  * @author Jeovany
- */
-/*
- * Conexion.java
- *
- * Created on 25 de mayo de 2006, 08:03 PM
- *
- * To change this template, choose Tools | Template Manager and open the
- * template in the editor.
+
  */
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -38,7 +26,7 @@ public class Conexion {
     public Conexion() {
         //Datos de la conexion
         this.driver = "com.mysql.jdbc.Driver";
-        this.urlDB = "jdbc:mysql://localhost/dbportalunac";
+        this.urlDB = "jdbc:mysql://localhost:3307/db_comunidad_alpha";
         this.userBD = "root";
         this.passBD = "root";
     }
@@ -88,8 +76,4 @@ public class Conexion {
         this.sSentencia = sSentencia;
     }
 
-    /*public static void main(String[] args) {
-        Conexion con = new Conexion();
-        con.crearConexion();
-    }*/
-}
+    }

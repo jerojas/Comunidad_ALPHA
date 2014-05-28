@@ -1,37 +1,47 @@
 <%-- 
     Document   : NewEditUsuario
     Created on : 11-oct-2012, 23:08:39
-    Author     : Guillermo
+    Author     : Jeovany
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Entidades.*"%>
 <%
 //Parámetros de entrada
+    
+    String mensaje2 = "";
+     Integer guardo = (Integer) request.getAttribute("guardoOK");
+    
+    if (guardo != null) {
+        mensaje2 = "Registro ingresado exitosamente";
+    }
+    
+    
     Usuario e = (Usuario) request.getAttribute("usuario");
 
+    String  cedula = "";
     String nombre = "";
     String apellidos = "";
-    String correo = "";
-    String clave = "";
-    String telefono = "";
-    String genero = "";
-    String perfil = "";
-    String estado = "";
+    String usuario = "";
+    String password = "";
+    
+    
+    
 
     String accion = "insertar";//por defecto es un nuevo registro
     if (e != null) //si el usuario no es nulo significa que es modificación
     {
+        cedula = Integer.toString(e.getCedula());
         nombre = e.getNombre();
-        apellidos =e.getApellido();
-        correo = e.getEmail();
-        clave = e.getClave();
-        telefono = e.getTelefono();
-        genero = e.getGenero();
-        perfil = Integer.toString(e.getIdPerfil());
+        apellidos = e.getApellidos();
+        usuario = e.getUsuario();
+        password = e.getPassword();
+        
         accion = "modificar";        
-        estado=Integer.toString(e.getEstado());
+       
     }
+    
+    
 %>
 <!DOCTYPE html>
 <html>
@@ -86,61 +96,47 @@
                         <div class="formgeneral">
                             <div class="campos">
                                 <label class="etiqueta"><strong>Nombre:</strong></label>
-                                <input  type="text" size="30"  id="nombre" name="nombre" class ="texto" value="<%=nombre%>" /> 
+                                <input  type="text" size="30"  id="nombre" name="nombre" class ="texto" value="<%=nombre%>" required autofocus=""  /> 
                             </div>
                             <div class="campos">
                                 <label class="etiqueta"><strong>Apellidos:</strong></label>
-                                <input type="text" id="ape" name="ape" size="30"class ="texto" value="<%=apellidos%>"/> 
+                                <input type="text" id="ape" name="ape" size="30"class ="texto" value="<%=apellidos%>" required/> 
                             </div>
                             <div class="campos2">
-                                <label class="etiqueta"><strong>Correo electrónico:</strong> </label>
-                                <input  type="text" id="correoo" name="correoo" size="30" l maxlength="25" class ="texto"value="<%=correo%>" disabled=""/> 
+                                <label class="etiqueta"><strong>Cédula:</strong> </label>
+                                <input  type="text" id="cedula" name="cedula" size="30" l maxlength="25" class ="texto"value="<%=cedula%>" required/> 
+                            </div>
+                            
+                            <div class="campos">
+                                <label class="etiqueta"> <strong>Usuario:</strong>  </label>
+                                <input class = "campo"type="text" id="user" name="user"size="30" class ="texto" value="<%=usuario%>" <%=e != (null) ? " disabled" : ""%> required/> 
                             </div>
                             <div class="campos">
                                 <label class="etiqueta"><strong>Contraseña:</strong> </label>
-                                <input type="password" id="passwor" name= "passwor" size="30" class ="texto" value="<%=clave%>"/> 
+                                <input type="password" id="passwor" name= "passwor" size="30" class ="texto" value="<%=password%>" required/> 
                             </div>
-                            <div class="campos">
-                                <label class="etiqueta"> <strong>Teléfono:</strong>  </label>
-                                <input class = "campo"type="text" id="tel" name="tel"size="30" class ="texto" value="<%=telefono%>"/> 
-                            </div>
-                            <div class="campos">
-                                <label class="etiqueta">Género:</label>                    
-                    <select name="genero" class="campos" id="genero">
-                        <option value="2">Seleccione el Género</option>
-                        <%if (genero.equals("0")) {%>
-                        <option value="0" selected>Femenino</option>
-                        <option value="1">Masculino</option>
-                        <%} else {
-                        %>
-                        <option value="0" >Femenino</option>
-                        <option value="1" selected>Masculino</option>
-                        <%}%>
-                    </select>   
-                            </div>
-                    
-                    <div class="campos">
-                    <label class="etiqueta">Perfil:</label>
-                    <input type="text" class="campo" id="perfil" name="perfil" value="<%=perfil%>"/>
-                </div>                        
-                <div class="campos">
-                    <label class="etiqueta">Estado:</label>
-                    <input type="text" class="campo" id="estado" name="estado" value="<%=estado%>"/>
-                </div>                        
+                                                             
+                                   
                 <div style="left: 40%;position: relative">
                     <br>
-                    <input type="submit" value="Modificar" name="btnModificar" id="btnModificar" class="boton"/>
+                    <input type="submit" value="Guardar" name="btnModificar" id="btnModificar" class="boton"/>
                     <br>
                     <br>                                            
                 </div>
                 <input type="hidden" name="accion" value="<%=accion%>" />
-                <input type="hidden" name="id" value="<%=correo%>" />
+                <input type="hidden" name="id" value="<%=usuario%>" />
                       
             </div>
+                <p style="text-align:center;color: red">
+            <%=mensaje2%>
+        </p>
                 </fieldset>
                 </form>
                             
         </div>
+             
+                 
+                
          </div>
         <hr>
     </body>

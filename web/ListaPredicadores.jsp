@@ -4,7 +4,7 @@
     Author     : Jeovany
 --%>
 
-<%@page import="Entidades.Seminario"%>
+<%@page import="Entidades.Predicador"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page language="java" import="java.util.*,Entidades.*" %>
 
@@ -12,7 +12,7 @@
     
     
 //Obtener el arreglo de estudiantes enviado en la solicitud
-    ArrayList<Seminario> seminarios = (ArrayList<Seminario>) request.getAttribute("seminarios");
+    ArrayList<Predicador> predicadores = (ArrayList<Predicador>) request.getAttribute("predicadores");
     int contador = 0;
     String mensaje = request.getAttribute("mensaje") == null ? "" : (String) request.getAttribute("mensaje");
     
@@ -21,7 +21,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>LISTAR SEMINARIOS</title>
+        <title>LISTAR PREDICADORES</title>
         <link rel="stylesheet" href="css/estilotarea3.css" type="text/css" >        
         <link rel="stylesheet" href="css/bluedream.css" type="text/css" >        
         <link rel="stylesheet" type="text/css" href="css/jMenu.jquery.css" media="screen" /> 
@@ -63,23 +63,27 @@
         <br>
         <hr>
         <table align="center">            
-            <caption>Seminarios Registrados</caption>
+            <caption>Predicadores Registrados</caption>
             <thead>
                 <tr>
+                     <th scope="col">Cédula</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Hora-Inicio</th>
-                    <th scope="col">Hora-Fin</th>
-                    <th scope="col">Observaciones</th>
-                    <th scope="col">Predicador</th>
-                    <th scope="col">Fecha-Creación</th>
-                    
+                    <th scope="col">Género</th>
+                    <th scope="col">Estado-Civil</th>
+                    <th scope="col">Fecha-Nacimiento</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Celular</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Pais</th>
+                    <th scope="col">Fecha-Ingreso</th>
+                                        
                 </tr>
             </thead>
             <%
-                if (seminarios != null && seminarios.size() > 0) {
-                    for (Iterator iterator = seminarios.iterator(); iterator.hasNext();) {
-                        Seminario u = (Seminario) iterator.next();
+                if (predicadores != null && predicadores.size() > 0) {
+                    for (Iterator iterator = predicadores.iterator(); iterator.hasNext();) {
+                        Predicador u = (Predicador) iterator.next();
                         contador++;
             %>
             <tbody>
@@ -90,35 +94,48 @@
                     <%} else {%>
                 <tr class="odd">                               
                     <%}%>
+                    
+                     <td>
+                        <%= u.getCedula()%>
+                    </td>
                     <td>
                         <%= u.getNombre()%>
                     </td>
                     <td>
-                        <%= u.getFecha()%>
+                        <%= u.getGenero()%>
                     </td>
                     <td>
-                        <%= u.getHora_inicio()%>
+                        <%= u.getEstadocivil()%>
                     </td>
                     <td>
-                        <%= u.getHora_fin()%>
+                        <%= u.getFecha_nacimiento()%>
+                    </td>
+                   
+                    <td>
+                        <%= u.getDireccion()%>
                     </td>
                     <td>
-                        <%= u.getObservaciones()%>
+                        <%= u.getTelefono()%>
                     </td>
                     <td>
-                        <%= u.getPredicador()%>
+                        <%= u.getCelular()%>
                     </td>
                     <td>
-                        <%= u.getFecha_creacion()%>
+                        <%= u.getEmail()%>
                     </td>
-                                      
+                    <td>
+                        <%= u.getPais()%>
+                    </td>  
+                    <td>
+                        <%= u.getFecha_ingreso()%>
+                    </td>
                    
                    
                     <td>
-                        <a href="ControladorUsuarios?accion=eliminar&IDs=<%=u.getIdseminario()%>">Eliminar</a>
+                        <a href="ControladorPredicadores?accion=eliminar&IDs=<%=u.getCedula()%>">Eliminar</a>
                     </td>
                     <td>
-                        <a href="ControladorUsuarios?accion=editar&ID=<%=u.getIdseminario()%>">Editar</a>
+                        <a href="ControladorPredicadores?accion=editar&ID=<%=u.getCedula()%>">Editar</a>
                     </td>
                 </tr>
             </tbody>
@@ -130,7 +147,7 @@
         </table>
         <br>
         <p style="text-align:center">
-            <a href="NewEditSeminario.jsp">Ingresar Seminario Nuevo </a>  
+            <a href="NewEditPredicador.jsp">Ingresar Seminario Nuevo </a>  
         </p>
         <p style="text-align:center;color: red">
             <%=mensaje%>

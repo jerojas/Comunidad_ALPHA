@@ -6,6 +6,7 @@
 
 package Controlador;
 
+import Entidades.Predicador;
 import Entidades.Seminario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -205,24 +206,27 @@ public class ControladorPredicadores extends HttpServlet {
             con = conBD.getCConexion();
             //Definición de Sentencia SQL
             
-            sql = "SELECT * FROM seminarios";
+            sql = "SELECT * FROM predicadores";
 
             //Ejecutar sentencia
             sentencia = con.createStatement();
             resultado = sentencia.executeQuery(sql);
 
             //arreglo donde se gurdaran los usuarios encontrados en la BD
-            ArrayList Seminarios = new ArrayList();
+            ArrayList Predicadores = new ArrayList();
             while (resultado.next()) //si el resultado tiene datos empezar a guardarlos.
             {
-                Seminario e = new Seminario(resultado.getInt(1), resultado.getString(2),resultado.getString(3),resultado.getString(4),resultado.getString(5),resultado.getString(6),resultado.getInt(7),resultado.getString(8));
+                Predicador e = new Predicador(resultado.getInt(1), resultado.getString(2),resultado.getString(3),
+                        resultado.getString(4),resultado.getString(5),resultado.getString(6),
+                        resultado.getString(7), resultado.getString(8), resultado.getString(9), 
+                        resultado.getString(10), resultado.getString(11));
               //Agregamos el producto al arrelo
-                Seminarios.add(e);
+                Predicadores.add(e);
             }
             // Agregar el arreglo de productos  a la solicitud
-            request.setAttribute("seminarios", Seminarios);
+            request.setAttribute("predicadores", Predicadores);
             //redirigir la solicitu a la página JSP
-            request.getRequestDispatcher("/ListaSeminarios.jsp").include(request, response);
+            request.getRequestDispatcher("/ListaPredicadores.jsp").include(request, response);
             //cerrar la conexion
             //con.close();
         } catch (SQLException ex) {

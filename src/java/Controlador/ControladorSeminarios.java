@@ -44,6 +44,7 @@ public class ControladorSeminarios extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+         request.setCharacterEncoding("UTF-8");
        
         String accion = request.getParameter("accion");
         //registrar nuevo usuario en el portal
@@ -329,10 +330,23 @@ public class ControladorSeminarios extends HttpServlet {
     private void modificar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //Obtener los datos a modificar.
        
+        Calendar fecha_obt = Calendar.getInstance();
+        int año = fecha_obt.get(Calendar.YEAR);
+        int mes = fecha_obt.get(Calendar.MONTH);
+        int dia = fecha_obt.get(Calendar.DAY_OF_MONTH);
+        
+       int fecha_actual_int = año + mes + dia;
+       String fecha_actual = Integer.toString(fecha_actual_int);
+
+       String codigo = request.getParameter("id");
         String nombre = request.getParameter("nombre");
-        //el campo txtCorreo esta deshabilitado, no llega al formulario
-      String precio = request.getParameter("precio");
-      String codigo = request.getParameter("id");
+        String fecha = request.getParameter("fecha");
+         String hora_inicio = request.getParameter("horainicio");
+          String hora_fin = request.getParameter("horafin");
+           String observ = request.getParameter("observ");
+            String predicador = request.getParameter("predicador");
+             String  fecha_creacion = fecha_actual;
+             
         
       
 
@@ -351,9 +365,14 @@ public class ControladorSeminarios extends HttpServlet {
             System.out.println("Conectado ...");
 
             //Definición de Sentencia SQL
-            sql = "UPDATE PRODUCTO SET nombre='" + nombre + "', "
-                    + "precio=" + precio + " "
-                  + "WHERE codigo=" + codigo + "";
+            sql = "UPDATE seminarios SET nombre='" + nombre + "', "
+                    + "fecha= '" + fecha + "',"
+                     + "hora_inicio='" + hora_inicio + "',"
+                     + "hora_fin='" + hora_fin + "',"
+                     + "Observaciones='" + observ + "',"
+                     + "predicador=" + predicador + ","
+                     + "fecha_creacion ='" + fecha_creacion + "' "
+                     + "WHERE idseminarios=" + codigo + "";
 
             //Ejecutar sentencia
             sentencia = con.createStatement();

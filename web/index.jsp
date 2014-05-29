@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
-    Created on : 05-sep-2012, 21:40:46
-    Author     : JEOVANY 
+    Created on : 27-May-2014, 21:40:46
+    Author     : JEOVANY
 --%>
 
 <%
@@ -59,8 +59,8 @@
 
             <div id="ingresar">	
                 <form id="for" name="form" method="POST" action="Validar" >
-                    <label for="correo">Usuario:</label> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp   &nbsp  &nbsp  &nbsp   
-                    <label for="password"> Contraseña: </label> <br><br>
+                    <label for="correo">Usuario:</label> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                    <label for="password">Contraseña: </label> <br><br>
                     <input type= "text" id="user" name ="user"> &nbsp &nbsp
                     <input type="password" id="password" name="password" > &nbsp &nbsp &nbsp &nbsp 
                     <input type="button" id ="boton" value= "ENTRAR"  > &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp 

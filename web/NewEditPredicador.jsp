@@ -93,39 +93,61 @@
             <hr>        
             <div class="formulario2" id="formulario2"> 
 
-                <h2>Información del Seminario</h2>
+                <h2>Información del Predicador</h2>
 
-                <form name="reg"  id="reg" method="POST" action="ControladorSeminarios"> 
+                <form name="reg"  id="reg" method="POST" action="ControladorPredicadores"> 
                     <fieldset>
-                        <legend><strong>Seminarios</strong></legend>
+                        <legend><strong>Predicadores</strong></legend>
                         <div class="formgeneral">
+                            
+                            <div class="campos">
+                                <label class="etiqueta"><strong>Cedula:</strong></label>
+                                <input  type="text" size="30"  id="ced" name="ced" class ="texto" value="<%=nombre%>" required autofocus=""  /> 
+                            </div>
                             <div class="campos">
                                 <label class="etiqueta"><strong>Nombre:</strong></label>
-                                <input  type="text" size="30"  id="nombre" name="nombre" class ="texto" value="<%=nombre%>" required autofocus=""  /> 
+                                <input  type="text" size="30"  id="nombre" name="nombre" class ="texto" value="<%=nombre%>" required  /> 
                             </div>
                             <div class="campos">
-                                <label class="etiqueta"><strong>Fecha:</strong></label>
-                                <input  type="date" size="30"  id="fecha" name="fecha" class ="texto" value="<%=fecha%>" required autofocus=""  /> 
+                                <label class="etiqueta"><strong>Género:</strong></label>
+                                <input  type="text" size="30"  id="gen" name="gen" class ="texto" value="<%=nombre%>"  a /> 
                             </div>
                             <div class="campos">
-                                <label class="etiqueta"><strong>Hora Inicio:</strong> </label>
-                                <input  type="time" id="horainicio" name="horainicio" size="30" l maxlength="25" class ="texto"value="<%=horainicio%>" required/> 
+                                <label class="etiqueta"><strong>Estado Civil:</strong></label>
+                                <input  type="text" size="30"  id="ecivil" name="ecivil" class ="texto" value="<%=nombre%>"    /> 
+                            </div>
+                            <div class="campos2">
+                                <label class="etiqueta"><strong>Fecha Nacimiento:</strong></label>
+                                <input  type="date" size="30"  id="fnac" name="fnac" class ="texto" value="<%=nombre%>" required  /> 
                             </div>
                             <div class="campos">
-                                <label class="etiqueta"><strong>Hora Fin:</strong> </label>
-                                <input  type="time" id="horafin" name="horafin" size="50" l maxlength="25" class ="texto"value="<%=horafin%>" required/> 
+                                <label class="etiqueta"><strong>Direccion:</strong></label>
+                                <input  type="text" size="30"  id="dir" name="dir" class ="texto" value="<%=nombre%>" required   /> 
                             </div>
                             <div class="campos">
-                                <label class="etiqueta"><strong>Observaciones</strong></label>
-                                <textarea id="observ" name="observ"  rows="10" cols="24" value="<%=observaciones%>" >   </textarea> 
+                                <label class="etiqueta"><strong>Teléfono</strong></label>
+                                <input  type="text" size="30"  id="tel" name="tel" class ="texto" value="<%=nombre%>"    /> 
                             </div>
+                            
+                            <div class="campos">
+                                <label class="etiqueta"><strong>Celular:</strong> </label>
+                                <input  type="tel" id="cel" name="cel" size="30" l maxlength="25" class ="texto"value="<%=horainicio%>" required/> 
+                            </div>
+                            <div class="campos">
+                                <label class="etiqueta"><strong>Email:</strong> </label>
+                                <input  type="email" id="email" name="email" size="30" l maxlength="25" class ="texto"value="<%=horafin%>" required/> 
+                            </div>
+                             <div class="campos">
+                                <label class="etiqueta"><strong>País:</strong> </label>
+                                <input  type="text" id="pais" name="pais" size="30" l maxlength="25" class ="texto"value="<%=horafin%>" required/> 
+                            </div>
+                            <div class="campos">
+                                <label class="etiqueta"><strong>Fecha Ingreso:</strong> </label>
+                                <input  type="text" id="pais" name="pais" size="30" l maxlength="25" class ="texto"value="<%=horafin%>" required/> 
+                            </div>
+                            
 
-                            <div class="campos">
-                                <label class="etiqueta"> <strong>Predicador:</strong>  </label>
-                                <input class = "predicador"type="text" id="predicador" name="user"size="30" class ="texto" value="<%=predicador%>" <%=e != (null) ? " disabled" : ""%> required/> 
-                            </div>
-
-
+                            
 
                             <div style="left: 40%;position: relative">
                                 <br>

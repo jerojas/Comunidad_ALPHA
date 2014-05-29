@@ -8,6 +8,7 @@ package Controlador;
 
 import Entidades.Seminario;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +26,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Jeovany
  */
-public class ControladorSeminarios extends HttpServlet {
+public class ControladorPredicadores extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,13 +36,13 @@ public class ControladorSeminarios extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * 
      */
     
     Conexion conBD;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
          request.setCharacterEncoding("UTF-8");
        
         String accion = request.getParameter("accion");
@@ -403,11 +404,7 @@ public class ControladorSeminarios extends HttpServlet {
         response.sendRedirect("index.jsp");
     }
 
-    /*
-     * Metodo en el cual se buscan los perfiles en BD y se envían a la pagina
-     * NewEditUsuario.jsp
-     */
-   
+     
 
     @Override
     public void init() throws ServletException {
@@ -424,6 +421,9 @@ public class ControladorSeminarios extends HttpServlet {
         } catch (SQLException ex) {
             System.out.println("Error cerrando conexión... " + ex);
         }
+    
+        
     }
 
-   }
+ 
+}

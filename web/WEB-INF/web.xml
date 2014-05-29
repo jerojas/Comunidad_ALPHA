@@ -12,6 +12,10 @@
         <servlet-name>ValidarIngreso</servlet-name>
         <servlet-class>Controlador.ValidarIngreso</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControladorPredicadores</servlet-name>
+        <servlet-class>Controlador.ControladorPredicadores</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControladorSeminarios</servlet-name>
         <url-pattern>/ControladorSeminarios</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>ValidarIngreso</servlet-name>
         <url-pattern>/Validar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControladorPredicadores</servlet-name>
+        <url-pattern>/ControladorPredicadores</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -16,28 +16,34 @@
         mensaje2 = "Registro ingresado exitosamente";
     }
 
-    Seminario e = (Seminario) request.getAttribute("seminario");
+    Predicador e = (Predicador) request.getAttribute("predicador");
 
-    String idsemin ="";
+    String cedula = "";
     String nombre = "";
-    String fecha = "";
-    String horainicio = "";
-    String horafin = "";
-    String observaciones = "";
-    String predicador = "";
-    String fecha_creacion = "";
+    String genero = "";
+    String ecivil = "";
+    String fnacimiento = "";
+    String dir = "";
+    String tel = "";
+    String cel = "";
+    String email = "";
+    String pais = "";
+    String fecha_ingreso = "";
 
     String accion = "insertar";//por defecto es un nuevo registro
     if (e != null) //si el usuario no es nulo significa que es modificación
     {
-        idsemin = Integer.toString(e.getIdseminario());
+        cedula = Integer.toString(e.getCedula());
         nombre = e.getNombre();
-        fecha = e.getFecha();
-        horainicio = e.getHora_inicio();
-        horafin = e.getHora_fin();
-        observaciones = e.getObservaciones();
-        predicador = Integer.toString(e.getPredicador());
-        fecha_creacion = e.getFecha_creacion();
+        genero = e.getGenero();
+        ecivil = e.getEstadocivil();
+        fnacimiento = e.getFecha_nacimiento();
+        dir = e.getDireccion();
+        tel = e.getTelefono();
+        cel = e.getCelular();
+        email = e.getEmail();
+        pais = e.getPais();
+        fecha_ingreso = e.getFecha_ingreso();
 
         accion = "modificar";
 
@@ -49,7 +55,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>SEMINARIOS</title>
+        <title>PREDICADORES</title>
         <link rel="stylesheet" href="css/estilotarea3.css" type="text/css" >        
         <link rel="stylesheet" href="css/bluedream.css" type="text/css" >        
         <link rel="stylesheet" type="text/css" href="css/jMenu.jquery.css" media="screen" /> 
@@ -99,10 +105,10 @@
                     <fieldset>
                         <legend><strong>Predicadores</strong></legend>
                         <div class="formgeneral">
-                            
+
                             <div class="campos">
                                 <label class="etiqueta"><strong>Cedula:</strong></label>
-                                <input  type="text" size="30"  id="ced" name="ced" class ="texto" value="<%=nombre%>" required autofocus=""  /> 
+                                <input  type="text" size="30"  id="ced" name="ced" class ="texto" value="<%=cedula%>" required autofocus=""  /> 
                             </div>
                             <div class="campos">
                                 <label class="etiqueta"><strong>Nombre:</strong></label>
@@ -110,44 +116,41 @@
                             </div>
                             <div class="campos">
                                 <label class="etiqueta"><strong>Género:</strong></label>
-                                <input  type="text" size="30"  id="gen" name="gen" class ="texto" value="<%=nombre%>"  a /> 
+                                <input  type="text" size="30"  id="gen" name="gen" class ="texto" value="<%=genero%>"  a /> 
                             </div>
                             <div class="campos">
                                 <label class="etiqueta"><strong>Estado Civil:</strong></label>
-                                <input  type="text" size="30"  id="ecivil" name="ecivil" class ="texto" value="<%=nombre%>"    /> 
+                                <input  type="text" size="30"  id="ecivil" name="ecivil" class ="texto" value="<%=ecivil%>"    /> 
                             </div>
                             <div class="campos2">
                                 <label class="etiqueta"><strong>Fecha Nacimiento:</strong></label>
-                                <input  type="date" size="30"  id="fnac" name="fnac" class ="texto" value="<%=nombre%>" required  /> 
+                                <input  type="date" size="30"  id="fnac" name="fnac" class ="texto" value="<%=fnacimiento%>" required  /> 
                             </div>
                             <div class="campos">
                                 <label class="etiqueta"><strong>Direccion:</strong></label>
-                                <input  type="text" size="30"  id="dir" name="dir" class ="texto" value="<%=nombre%>" required   /> 
+                                <input  type="text" size="30"  id="dir" name="dir" class ="texto" value="<%=dir%>" required   /> 
                             </div>
                             <div class="campos">
                                 <label class="etiqueta"><strong>Teléfono</strong></label>
-                                <input  type="text" size="30"  id="tel" name="tel" class ="texto" value="<%=nombre%>"    /> 
+                                <input  type="text" size="30"  id="tel" name="tel" class ="texto" value="<%=tel%>"    /> 
                             </div>
-                            
+
                             <div class="campos">
                                 <label class="etiqueta"><strong>Celular:</strong> </label>
-                                <input  type="tel" id="cel" name="cel" size="30" l maxlength="25" class ="texto"value="<%=horainicio%>" required/> 
+                                <input  type="tel" id="cel" name="cel" size="30" l maxlength="25" class ="texto"value="<%=cel%>" required/> 
                             </div>
                             <div class="campos">
                                 <label class="etiqueta"><strong>Email:</strong> </label>
-                                <input  type="email" id="email" name="email" size="30" l maxlength="25" class ="texto"value="<%=horafin%>" required/> 
-                            </div>
-                             <div class="campos">
-                                <label class="etiqueta"><strong>País:</strong> </label>
-                                <input  type="text" id="pais" name="pais" size="30" l maxlength="25" class ="texto"value="<%=horafin%>" required/> 
+                                <input  type="email" id="email" name="email" size="30" l maxlength="25" class ="texto"value="<%=email%>" required/> 
                             </div>
                             <div class="campos">
-                                <label class="etiqueta"><strong>Fecha Ingreso:</strong> </label>
-                                <input  type="text" id="pais" name="pais" size="30" l maxlength="25" class ="texto"value="<%=horafin%>" required/> 
+                                <label class="etiqueta"><strong>País:</strong> </label>
+                                <input  type="text" id="pais" name="pais" size="30" l maxlength="25" class ="texto"value="<%=pais%>" required/> 
                             </div>
                             
 
-                            
+
+
 
                             <div style="left: 40%;position: relative">
                                 <br>
@@ -156,7 +159,7 @@
                                 <br>                                            
                             </div>
                             <input type="hidden" name="accion" value="<%=accion%>" />
-                            <input type="hidden" name="id" value="<%=idsemin%>" />
+                            <input type="hidden" name="id" value="<%=cedula%>" />
 
                         </div>
                         <p style="text-align:center;color: red">

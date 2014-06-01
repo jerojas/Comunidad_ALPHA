@@ -29,6 +29,10 @@ public class Predicador {
         this.cedula = cedula;
     }
 
+  
+
+    
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }

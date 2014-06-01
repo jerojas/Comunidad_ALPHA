@@ -125,10 +125,7 @@
                                 <label class="etiqueta"> <strong>Predicador:</strong>  </label>
                                 <input class = "texto" type="text" id="predicador" name="predicador"size="30" class ="texto" value="<%=predicador%>"  required/> 
                             </div>
-                             <div class="campos2">
-                                <label class="etiqueta"> <strong>Fecha Creación:</strong>  </label>
-                                <input class = "fecha_creacion"type="date"   id="fecha_creacion" name="fecha_creacion"size="30" class ="texto" value="<%=fecha_creacion%>" <%=e != (null) ?  "28/05/2014" : ""%>  required/> 
-                            </div>
+                             
 
 
 

@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -125,23 +126,14 @@ public class ControladorSeminarios extends HttpServlet {
     }
 
     private void insertar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-       Calendar fecha_obt = Calendar.getInstance();
-        int año = fecha_obt.get(Calendar.YEAR);
-        int mes = fecha_obt.get(Calendar.MONTH);
-        int dia = fecha_obt.get(Calendar.DAY_OF_MONTH);
-        
-       int fecha_actual_int = año + mes + dia;
-       String fecha_actual = Integer.toString(fecha_actual_int);
-
-        
+       
         String nombre = request.getParameter("nombre");
         String fecha = request.getParameter("fecha");
          String hora_inicio = request.getParameter("horainicio");
           String hora_fin = request.getParameter("horafin");
            String observ = request.getParameter("observ");
             String predicador = request.getParameter("predicador");
-             String  fecha_creacion = fecha_actual;
+             String  fecha_creacion = fecha();
              
         
         RequestDispatcher vista;
@@ -243,7 +235,7 @@ public class ControladorSeminarios extends HttpServlet {
             System.out.println("Conectado a BD...");
 
             //OBTENER EL DATO A ELIMINAR
-            String codigo = request.getParameter("ID");
+            String codigo = request.getParameter("IDs");
 
             //Definición de Sentencia SQL
             sql = "DELETE FROM seminarios WHERE idseminarios='" + codigo + "'";
@@ -328,26 +320,15 @@ public class ControladorSeminarios extends HttpServlet {
     private void modificar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //Obtener los datos a modificar.
        
-        Calendar fecha_obt = Calendar.getInstance();
-        int año = fecha_obt.get(Calendar.YEAR);
-        int mes = fecha_obt.get(Calendar.MONTH);
-        int dia = fecha_obt.get(Calendar.DAY_OF_MONTH);
-        
-       int fecha_actual_int = año + mes + dia;
-       String fecha_actual = Integer.toString(fecha_actual_int);
-
-       String codigo = request.getParameter("id");
+      String codigo = request.getParameter("id");
         String nombre = request.getParameter("nombre");
         String fecha = request.getParameter("fecha");
          String hora_inicio = request.getParameter("horainicio");
           String hora_fin = request.getParameter("horafin");
            String observ = request.getParameter("observ");
             String predicador = request.getParameter("predicador");
-             String  fecha_creacion = fecha_actual;
-             
-        
-      
-
+           
+       
         RequestDispatcher vista;
         
         //Objetos para manipular la conexion y los datos
@@ -368,9 +349,8 @@ public class ControladorSeminarios extends HttpServlet {
                      + "hora_inicio='" + hora_inicio + "',"
                      + "hora_fin='" + hora_fin + "',"
                      + "Observaciones='" + observ + "',"
-                     + "predicador=" + predicador + ","
-                     + "fecha_creacion ='" + fecha_creacion + "' "
-                     + "WHERE idseminarios=" + codigo + "";
+                     + "predicador='" + predicador + "'"
+                    + "WHERE idseminarios='" + codigo + "'";
 
             //Ejecutar sentencia
             sentencia = con.createStatement();
@@ -402,6 +382,22 @@ public class ControladorSeminarios extends HttpServlet {
         sesionOk.invalidate();//se destruye la sesión
         response.sendRedirect("index.jsp");
     }
+    
+    public String fecha(){
+                String fecha="";
+                Calendar c1 = new GregorianCalendar();
+                String dia = Integer.toString(c1.get(Calendar.DATE));
+                String mes = Integer.toString(c1.get(Calendar.MONTH)+1);
+                String anio= Integer.toString(c1.get(Calendar.YEAR));
+                if(c1.get(Calendar.DATE)<10){
+                        dia="0".concat(dia);
+                }
+                if(c1.get(Calendar.MONTH)<10){
+                        mes="0".concat(mes);
+                }
+                //String[] fecha={dia,mes,anio};
+                return dia.concat("/").concat(mes).concat("/").concat(anio);
+        }
 
     /*
      * Metodo en el cual se buscan los perfiles en BD y se envían a la pagina

@@ -6,6 +6,7 @@
             <li><a href="ControladorUsuarios?accion=listar">Administrar Usuarios</a></li> 
             <li><a href="ControladorPredicadores?accion=listar">Administrar Predicadores</a></li> 
             <li><a href="ControladorSeminarios?accion=listar">Administrar Seminarios</a></li> 
+            <li><a href="ControladorSeminarios?accion=salir">Salir</a></li> 
                                       	
         </ul>	
     </li>

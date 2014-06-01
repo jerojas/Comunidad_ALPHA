@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -127,23 +128,19 @@ public class ControladorPredicadores extends HttpServlet {
     }
 
     private void insertar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+             
         
-       Calendar fecha_obt = Calendar.getInstance();
-        int año = fecha_obt.get(Calendar.YEAR);
-        int mes = fecha_obt.get(Calendar.MONTH);
-        int dia = fecha_obt.get(Calendar.DAY_OF_MONTH);
-        
-       int fecha_actual_int = año + mes + dia;
-       String fecha_actual = Integer.toString(fecha_actual_int);
-
-        
+        String cedula = request.getParameter("ced");
         String nombre = request.getParameter("nombre");
-        String fecha = request.getParameter("fecha");
-         String hora_inicio = request.getParameter("horainicio");
-          String hora_fin = request.getParameter("horafin");
-           String observ = request.getParameter("observ");
-            String predicador = request.getParameter("predicador");
-             String  fecha_creacion = fecha_actual;
+        String genero = request.getParameter("gen");
+         String ecivil = request.getParameter("ecivil");
+          String fnacimiento = request.getParameter("fnac");
+           String dir = request.getParameter("dir");
+            String tel = request.getParameter("tel");
+            String cel = request.getParameter("cel");
+            String email = request.getParameter("email");
+            String pais = request.getParameter("pais");
+            String  fecha_ingreso = fecha();
              
         
         RequestDispatcher vista;
@@ -160,7 +157,8 @@ public class ControladorPredicadores extends HttpServlet {
             System.out.println("Conectado ...");
 
             //Definición de Sentencia SQL
-            sql = "INSERT INTO seminarios  VALUES (null, '" + nombre + "','" + fecha + "','" + hora_inicio + "','" + hora_fin + "','" + observ + "','" + predicador + "','" + fecha_creacion + "')";
+            sql = "INSERT INTO predicadores  VALUES ('" + cedula + "','" + nombre + "','" + genero + "','" + ecivil 
+                    + "','" + fnacimiento + "','" + dir + "','" + tel + "','" + cel + "','" + email + "','" + pais + "','" + fecha_ingreso + "')";
 
             //Ejecutar sentencia
             sentencia = con.createStatement();
@@ -171,7 +169,7 @@ public class ControladorPredicadores extends HttpServlet {
             //si fue inserción del administrador o por un visitante en el portal redirigir a la pagina correcta
            
                 request.setAttribute("guardoOK", resultado);
-                vista = request.getRequestDispatcher("NewEditSeminario.jsp");
+                vista = request.getRequestDispatcher("NewEditPredicador.jsp");
                 vista.forward(request, response);
             
                // request.setAttribute("mensaje", "Registro creado exitosamente !");
@@ -248,10 +246,10 @@ public class ControladorPredicadores extends HttpServlet {
             System.out.println("Conectado a BD...");
 
             //OBTENER EL DATO A ELIMINAR
-            String codigo = request.getParameter("ID");
+            String codigo = request.getParameter("IDs");
 
             //Definición de Sentencia SQL
-            sql = "DELETE FROM seminarios WHERE idseminarios='" + codigo + "'";
+            sql = "DELETE FROM predicadores WHERE cedula='" + codigo + "'";
 
             //Ejecutar sentencia
             sentencia = con.createStatement();
@@ -284,7 +282,7 @@ public class ControladorPredicadores extends HttpServlet {
         String sql = "";
 
         //Objeto Usuario, donde se guardará la información del registro a editar
-        Seminario e = null;
+        Predicador e = null;
         try {
             
             con = conBD.getCConexion();
@@ -293,18 +291,20 @@ public class ControladorPredicadores extends HttpServlet {
             String codigo = request.getParameter("ID");
 
             //Definición de Sentencia SQL
-            sql = "SELECT * FROM seminarios WHERE idseminarios ='" + codigo + "'";
+            sql = "SELECT * FROM predicadores WHERE cedula ='" + codigo + "'";
             //Ejecutar sentencia
             sentencia = con.createStatement();
             resultado = sentencia.executeQuery(sql);
 
             // VER SI HAY RESULTADODOS
             while (resultado.next()) {
-                e = new Seminario(resultado.getInt(1), resultado.getString(2),resultado.getString(3),resultado.getString(4),resultado.getString(5),resultado.getString(6),resultado.getInt(7),resultado.getString(8));
-                break; //debe haber un solo registro.
+                e = new Predicador(resultado.getInt(1), resultado.getString(2),resultado.getString(3),resultado.getString(4),resultado.getString(5),resultado.getString(6),
+                        resultado.getString(7),resultado.getString(8),resultado.getString(9),resultado.getString(10),resultado.getString(11));
+                
+                                break; //debe haber un solo registro.
             }
             // Agregar el producto a la solicitud
-            request.setAttribute("seminario", e);
+            request.setAttribute("predicador", e);
 
             
 
@@ -315,7 +315,7 @@ public class ControladorPredicadores extends HttpServlet {
            
 
             //redirigir la solicitud a la página JSP
-            request.getRequestDispatcher("/NewEditSeminario.jsp").include(request, response);
+            request.getRequestDispatcher("/NewEditPredicador.jsp").include(request, response);
             //cerrar la conexion
             //con.close();
         /*
@@ -333,22 +333,17 @@ public class ControladorPredicadores extends HttpServlet {
     private void modificar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //Obtener los datos a modificar.
        
-        Calendar fecha_obt = Calendar.getInstance();
-        int año = fecha_obt.get(Calendar.YEAR);
-        int mes = fecha_obt.get(Calendar.MONTH);
-        int dia = fecha_obt.get(Calendar.DAY_OF_MONTH);
-        
-       int fecha_actual_int = año + mes + dia;
-       String fecha_actual = Integer.toString(fecha_actual_int);
-
-       String codigo = request.getParameter("id");
+       String cedula = request.getParameter("id");
         String nombre = request.getParameter("nombre");
-        String fecha = request.getParameter("fecha");
-         String hora_inicio = request.getParameter("horainicio");
-          String hora_fin = request.getParameter("horafin");
-           String observ = request.getParameter("observ");
-            String predicador = request.getParameter("predicador");
-             String  fecha_creacion = fecha_actual;
+        String genero = request.getParameter("gen");
+         String ecivil = request.getParameter("ecivil");
+          String fnacimiento = request.getParameter("fnac");
+           String dir = request.getParameter("dir");
+            String tel = request.getParameter("tel");
+            String cel = request.getParameter("cel");
+            String email = request.getParameter("email");
+            String pais = request.getParameter("pais");
+          
              
         
       
@@ -368,14 +363,17 @@ public class ControladorPredicadores extends HttpServlet {
             System.out.println("Conectado ...");
 
             //Definición de Sentencia SQL
-            sql = "UPDATE seminarios SET nombre='" + nombre + "', "
-                    + "fecha= '" + fecha + "',"
-                     + "hora_inicio='" + hora_inicio + "',"
-                     + "hora_fin='" + hora_fin + "',"
-                     + "Observaciones='" + observ + "',"
-                     + "predicador=" + predicador + ","
-                     + "fecha_creacion ='" + fecha_creacion + "' "
-                     + "WHERE idseminarios=" + codigo + "";
+            sql = "UPDATE predicadores SET nombre='" + nombre + "', "
+                    + "genero= '" + genero + "',"
+                     + "estadocivil='" + ecivil + "',"
+                     + "fecha_nacimiento='" + fnacimiento + "',"
+                     + "direccion='" + dir + "',"
+                     + "telefono='" + tel + "',"
+                     + "celular ='" + cel + "',"
+                     + "email='" + email + "',"
+                     + "pais='" + pais + "'"
+                    
+                     + "WHERE cedula=" + cedula + "";
 
             //Ejecutar sentencia
             sentencia = con.createStatement();
@@ -407,6 +405,23 @@ public class ControladorPredicadores extends HttpServlet {
         sesionOk.invalidate();//se destruye la sesión
         response.sendRedirect("index.jsp");
     }
+    
+    
+     public String fecha(){
+                String fecha="";
+                Calendar c1 = new GregorianCalendar();
+                String dia = Integer.toString(c1.get(Calendar.DATE));
+                String mes = Integer.toString(c1.get(Calendar.MONTH)+1);
+                String anio= Integer.toString(c1.get(Calendar.YEAR));
+                if(c1.get(Calendar.DATE)<10){
+                        dia="0".concat(dia);
+                }
+                if(c1.get(Calendar.MONTH)<10){
+                        mes="0".concat(mes);
+                }
+                //String[] fecha={dia,mes,anio};
+                return dia.concat("/").concat(mes).concat("/").concat(anio);
+        }
 
      
 

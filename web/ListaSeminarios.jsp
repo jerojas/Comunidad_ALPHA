@@ -130,7 +130,7 @@
         </table>
         <br>
         <p style="text-align:center">
-            <a href="NewEditSeminario.jsp">Ingresar Seminario Nuevo </a>  
+            <a href="ControladorSeminarios?accion=nuevo">Ingresar Seminario Nuevo </a>  
         </p>
         <p style="text-align:center;color: red">
             <%=mensaje%>

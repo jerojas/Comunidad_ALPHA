@@ -116,11 +116,85 @@
                             </div>
                             <div class="campos">
                                 <label class="etiqueta"><strong>Género:</strong></label>
-                                <input  type="text" size="30"  id="gen" name="gen" class ="texto" value="<%=genero%>"  a /> 
+                             <!-- <input  type="text" size="30"  id="gen" name="gen" class ="texto" value="<%=genero%>"  a />  -->
+                            <select name="cbgenero" class="texto" id="cbgenero">
+                        <option value="2">Seleccione el Género</option>
+                        <%
+                            if (accion.equals("modificar")) {
+                                if (genero.equals("0")) {%>
+                        <option value="0" selected>Femenino</option>
+                        <option value="1">Masculino</option>
+                        <%} else {
+                        %>
+                        <option value="0" >Femenino</option>
+                        <option value="1" selected>Masculino</option>
+                        <%}
+                        } else { //es un nuevo registro
+                        %>
+                       
+                        <option value="0">Femenino</option>
+                        <option value="1">Masculino</option>
+                        <%}//fin accion
+                        %>
+                    </select>
+                            
+                            
                             </div>
                             <div class="campos">
                                 <label class="etiqueta"><strong>Estado Civil:</strong></label>
-                                <input  type="text" size="30"  id="ecivil" name="ecivil" class ="texto" value="<%=ecivil%>"    /> 
+                              <!--  <input  type="text" size="30"  id="ecivil" name="ecivil" class ="texto" value="<%=ecivil%>"    /> -->
+                             <select name="ecivil" class="texto" id="ecivil">
+                        <option value="4">Seleccione</option>
+                        <%
+                            if (accion.equals("modificar")) {
+                                if (ecivil.equals("0")) {%>
+                        <option value="0" selected>Soltero</option>
+                        <option value="1">Casado</option>
+                         <option value="2">Divorciado</option>
+                          <option value="3">Viudo</option>
+                        <%} else if (ecivil.equals("1"))  { %>
+                                                
+                        <option value="0" >Soltero</option>
+                        <option value="1"selected>Casado</option>
+                         <option value="2">Divorciado</option>
+                          <option value="3">Viudo</option>
+                          
+                        <%}else if (ecivil.equals("2"))  { %>
+                                                
+                        <option value="0" >Soltero</option>
+                        <option value="1">Casado</option>
+                         <option value="2"selected>Divorciado</option>
+                          <option value="3">Viudo</option>
+                          
+                        <%}else if (ecivil.equals("3"))  { %>
+                                                
+                        <option value="0" >Soltero</option>
+                        <option value="1">Casado</option>
+                         <option value="2">Divorciado</option>
+                          <option value="3"selected>Viudo</option>
+                          
+                        <%}else if (ecivil.equals("4"))  { %>
+                                                
+                        <option value="0" >Soltero</option>
+                        <option value="1">Casado</option>
+                         <option value="2">Divorciado</option>
+                          <option value="3">Viudo</option>
+                          
+                        <%}
+                        
+                        
+                        } else { //es un nuevo registro
+                        %>
+                       
+                        <option value="0" >Soltero</option>
+                        <option value="1">Casado</option>
+                         <option value="2">Divorciado</option>
+                          <option value="3">Viudo</option>
+                        <%}//fin accion
+                        %>
+                    </select>
+                            
+                            
                             </div>
                             <div class="campos2">
                                 <label class="etiqueta"><strong>Fecha Nacimiento:</strong></label>

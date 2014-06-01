@@ -4,6 +4,7 @@
     Author     : Jeovany
 --%>
 
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Entidades.*"%>
 <%
@@ -24,7 +25,7 @@
     String horainicio = "";
     String horafin = "";
     String observaciones = "";
-    String predicador = "";
+    int predicador = -1;
     String fecha_creacion = "";
 
     String accion = "insertar";//por defecto es un nuevo registro
@@ -36,7 +37,7 @@
         horainicio = e.getHora_inicio();
         horafin = e.getHora_fin();
         observaciones = e.getObservaciones();
-        predicador = Integer.toString(e.getPredicador());
+        predicador = e.getPredicador();
         fecha_creacion = e.getFecha_creacion();
 
         accion = "modificar";
@@ -123,7 +124,22 @@
 
                             <div class="campos">
                                 <label class="etiqueta"> <strong>Predicador:</strong>  </label>
-                                <input class = "texto" type="text" id="predicador" name="predicador"size="30" class ="texto" value="<%=predicador%>"  required/> 
+                                <!--<input class = "texto" type="text" id="predicador" name="predicador"size="30" class ="texto" value="<%=predicador%>"  required/> -->
+                            <select name="listaPredicador">
+                        <option value="0" selected>
+                            Seleccionar el Predicador
+                        </option>
+                        <%List ListaPredicadores = (List) request.getAttribute("predicadores");//se recibe el arreglo
+                            System.out.print("Cargando Predicadores...");
+                            DatosPredicador nom_pred = null; 
+                            
+                            for (int i = 0; i < ListaPredicadores.size(); i++) {
+                                nom_pred = (DatosPredicador) ListaPredicadores.get(i);%>
+                        <option value="<%=nom_pred.getCedula()%>" <%= predicador == (nom_pred.getCedula()) ? " selected" : ""%>>
+                            <%=nom_pred.getNombre()%>
+                        </option>
+                        <%}%>
+                    </select>
                             </div>
                              
 

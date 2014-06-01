@@ -6,6 +6,7 @@
 
 package Controlador;
 
+import Entidades.DatosPredicador;
 import Entidades.Seminario;
 import java.io.IOException;
 import java.sql.Connection;
@@ -15,6 +16,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -41,7 +44,7 @@ public class ControladorSeminarios extends HttpServlet {
     
     Conexion conBD;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
          request.setCharacterEncoding("UTF-8");
        
@@ -84,7 +87,11 @@ public class ControladorSeminarios extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request,response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorSeminarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -98,7 +105,11 @@ public class ControladorSeminarios extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorSeminarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -111,17 +122,44 @@ public class ControladorSeminarios extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
- private void nuevo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+ private void nuevo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         
     Connection con = null;//Objeto para la conexion
         Statement sentencia = null;//Objeto para definir y ejecutar las consultas sql
         String sql = "";
 
         ResultSet resultado = null;//Objeto para obtener los resultados de las consultas sql
+        
+          try {
+              
+          
         con = conBD.getCConexion();
         System.out.println("Conectado ...");
-        request.getRequestDispatcher("/NewEditSeminario.jsp").forward(request, response);
-    
+                
+        sql = "SELECT cedula, nombre FROM predicadores ORDER BY nombre";
+        
+        //Ejecutar sentencia
+            sentencia = con.createStatement();
+            resultado = sentencia.executeQuery(sql);
+            
+             //arreglo donde se guardaran los perfiles encontrados en la BD
+            ArrayList predicadores = new ArrayList();
+            while (resultado.next()) //si el resultado tiene datos empezar a guardarlos.
+            {
+                DatosPredicador p = new DatosPredicador(resultado.getString(2), resultado.getInt(1));
+                //Agregamos el perfil (FILA) encontrado al arreglo
+                predicadores.add(p);
+            }
+            // Agregar el arreglo de perfiles a la solicitud
+            request.setAttribute("predicadores", predicadores);
+            //redirigir la solicitu a la página JSP
+            request.getRequestDispatcher("/NewEditSeminario.jsp").forward(request, response);
+        
+                } catch (SQLException ex) {
+            System.out.println("No se ha podido establecer la conexión, o el SQL esta mal formado " + sql);
+            request.getRequestDispatcher("/Error.jsp").forward(request, response);
+        }
+        
     
     }
 
@@ -303,12 +341,24 @@ public class ControladorSeminarios extends HttpServlet {
             request.setAttribute("seminario", e);
 
             
-
-            //Ejecutar sentencia
+           sql = "SELECT cedula, nombre FROM predicadores ORDER BY nombre";
+        
+        //Ejecutar sentencia
             sentencia = con.createStatement();
             resultado = sentencia.executeQuery(sql);
-
-           
+            
+             //arreglo donde se guardaran los perfiles encontrados en la BD
+            ArrayList predicadores = new ArrayList();
+            while (resultado.next()) //si el resultado tiene datos empezar a guardarlos.
+            {
+                DatosPredicador p = new DatosPredicador(resultado.getString(2), resultado.getInt(1));
+                //Agregamos el perfil (FILA) encontrado al arreglo
+                predicadores.add(p);
+            }
+            // Agregar el arreglo de perfiles a la solicitud
+            request.setAttribute("predicadores", predicadores);
+            
+            
 
             //redirigir la solicitud a la página JSP
             request.getRequestDispatcher("/NewEditSeminario.jsp").include(request, response);

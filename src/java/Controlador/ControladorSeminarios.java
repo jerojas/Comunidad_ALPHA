@@ -196,8 +196,12 @@ public class ControladorSeminarios extends HttpServlet {
             con = conBD.getCConexion();
             //Definición de Sentencia SQL
             
-            sql = "SELECT * FROM seminarios";
-
+            sql = "SELECT seminarios.idseminarios, seminarios.nombre, seminarios.fecha, seminarios.hora_inicio,"
+                    + "seminarios.hora_fin, seminarios.Observaciones, seminarios.predicador, "
+                    + "seminarios.fecha_creacion, predicadores.nombre"
+                    + " FROM seminarios, predicadores "
+                    + "WHERE seminarios.predicador = predicadores.cedula";
+            
             //Ejecutar sentencia
             sentencia = con.createStatement();
             resultado = sentencia.executeQuery(sql);
@@ -207,7 +211,12 @@ public class ControladorSeminarios extends HttpServlet {
             while (resultado.next()) //si el resultado tiene datos empezar a guardarlos.
             {
                 Seminario e = new Seminario(resultado.getInt(1), resultado.getString(2),resultado.getString(3),resultado.getString(4),resultado.getString(5),resultado.getString(6),resultado.getInt(7),resultado.getString(8));
-              //Agregamos el producto al arrelo
+             
+                 e.setDescripcionPredicador(resultado.getString(9));
+                
+
+
+//Agregamos el producto al arrelo
                 Seminarios.add(e);
             }
             // Agregar el arreglo de productos  a la solicitud

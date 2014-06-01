@@ -106,7 +106,7 @@
                         <%= u.getObservaciones()%>
                     </td>
                     <td>
-                        <%= u.getPredicador()%>
+                        <%= u.getDescripcionPredicador()%>
                     </td>
                     <td>
                         <%= u.getFecha_creacion()%>

@@ -14,6 +14,7 @@ public class Seminario {
     
      String nombre, fecha, hora_inicio, hora_fin, observaciones, fecha_creacion ;
     int idseminario, predicador;
+    private String descripcionPredicador;
 
     public Seminario(int idseminario, String nombre, String fecha, String hora_inicio, String hora_fin, String observaciones, int predicador, String fecha_creacion) {
         this.nombre = nombre;
@@ -88,6 +89,14 @@ public class Seminario {
 
     public int getPredicador() {
         return predicador;
+    }
+
+     public String getDescripcionPredicador() {
+        return descripcionPredicador;
+    }
+
+    public void setDescripcionPredicador(String descripcionPredicador) {
+        this.descripcionPredicador = descripcionPredicador;
     }
     
 }

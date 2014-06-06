@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Controlador;
 
 import Entidades.Predicador;
@@ -39,14 +38,14 @@ public class ControladorPredicadores extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     Conexion conBD;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-         request.setCharacterEncoding("UTF-8");
-       
+
+        request.setCharacterEncoding("UTF-8");
+
         String accion = request.getParameter("accion");
         //registrar nuevo usuario en el portal
         if (accion.equals("insertar")) {
@@ -65,13 +64,12 @@ public class ControladorPredicadores extends HttpServlet {
             modificar(request, response);
         } else if (accion.equals("nuevo")) {
             nuevo(request, response);//atender peticion para nuevo usuario
-        }else if (accion.equals("salir")) { //salir de la aplicacion
+        } else if (accion.equals("salir")) { //salir de la aplicacion
             salir(request, response);//
-        }  else {
+        } else {
             request.getRequestDispatcher("/Error.jsp").include(request, response);
         }
-        
-           
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -113,9 +111,9 @@ public class ControladorPredicadores extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
- private void nuevo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-    Connection con = null;//Objeto para la conexion
+    private void nuevo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        Connection con = null;//Objeto para la conexion
         Statement sentencia = null;//Objeto para definir y ejecutar las consultas sql
         String sql = "";
 
@@ -123,28 +121,25 @@ public class ControladorPredicadores extends HttpServlet {
         con = conBD.getCConexion();
         System.out.println("Conectado ...");
         request.getRequestDispatcher("/NewEditSeminario.jsp").forward(request, response);
-    
-    
+
     }
 
     private void insertar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-             
-        
+
         String cedula = request.getParameter("ced");
         String nombre = request.getParameter("nombre");
-        String genero = request.getParameter("gen");
-         String ecivil = request.getParameter("ecivil");
-          String fnacimiento = request.getParameter("fnac");
-           String dir = request.getParameter("dir");
-            String tel = request.getParameter("tel");
-            String cel = request.getParameter("cel");
-            String email = request.getParameter("email");
-            String pais = request.getParameter("pais");
-            String  fecha_ingreso = fecha();
-             
-        
+        String genero = request.getParameter("cbgenero");
+        String ecivil = request.getParameter("ecivil");
+        String fnacimiento = request.getParameter("fnac");
+        String dir = request.getParameter("dir");
+        String tel = request.getParameter("tel");
+        String cel = request.getParameter("cel");
+        String email = request.getParameter("email");
+        String pais = request.getParameter("pais");
+        String fecha_ingreso = fecha();
+
         RequestDispatcher vista;
-        
+
         //Objetos para manipular la conexion y los datos
         Connection con = null;//Objeto para la conexion
         Statement sentencia = null;//Objeto para definir y ejecutar las consultas sql
@@ -152,31 +147,26 @@ public class ControladorPredicadores extends HttpServlet {
         String sql = "";
 
         try {
-            
+
             con = conBD.getCConexion();
             System.out.println("Conectado ...");
 
             //Definición de Sentencia SQL
-            sql = "INSERT INTO predicadores  VALUES ('" + cedula + "','" + nombre + "','" + genero + "','" + ecivil 
+            sql = "INSERT INTO predicadores  VALUES ('" + cedula + "','" + nombre + "','" + genero + "','" + ecivil
                     + "','" + fnacimiento + "','" + dir + "','" + tel + "','" + cel + "','" + email + "','" + pais + "','" + fecha_ingreso + "')";
 
             //Ejecutar sentencia
             sentencia = con.createStatement();
             resultado = sentencia.executeUpdate(sql);
 
-            
-           
             //si fue inserción del administrador o por un visitante en el portal redirigir a la pagina correcta
-           
-                request.setAttribute("guardoOK", resultado);
-                vista = request.getRequestDispatcher("NewEditPredicador.jsp");
-                vista.forward(request, response);
-            
-               // request.setAttribute("mensaje", "Registro creado exitosamente !");
-              // todos(request, response);
-            
+            request.setAttribute("guardoOK", resultado);
+            vista = request.getRequestDispatcher("NewEditPredicador.jsp");
+            vista.forward(request, response);
 
-        //   response.sendRedirect("Error.jsp");
+               // request.setAttribute("mensaje", "Registro creado exitosamente !");
+            // todos(request, response);
+            //   response.sendRedirect("Error.jsp");
         } catch (SQLException ex) {
             System.out.println("No se ha podido establecer la conexión, o el SQL esta mal formado " + sql);
             request.getRequestDispatcher("/Error.jsp").forward(request, response);
@@ -203,7 +193,7 @@ public class ControladorPredicadores extends HttpServlet {
         try {
             con = conBD.getCConexion();
             //Definición de Sentencia SQL
-            
+
             sql = "SELECT * FROM predicadores";
 
             //Ejecutar sentencia
@@ -214,12 +204,16 @@ public class ControladorPredicadores extends HttpServlet {
             ArrayList Predicadores = new ArrayList();
             while (resultado.next()) //si el resultado tiene datos empezar a guardarlos.
             {
-                Predicador e = new Predicador(resultado.getInt(1), resultado.getString(2),resultado.getString(3),
-                        resultado.getString(4),resultado.getString(5),resultado.getString(6),
-                        resultado.getString(7), resultado.getString(8), resultado.getString(9), 
+
+                Predicador e = new Predicador(resultado.getInt(1), resultado.getString(2), resultado.getString(3),
+                        resultado.getString(4), resultado.getString(5), resultado.getString(6),
+                        resultado.getString(7), resultado.getString(8), resultado.getString(9),
                         resultado.getString(10), resultado.getString(11));
-              //Agregamos el producto al arrelo
+                //Agregamos el producto al arrelo
                 Predicadores.add(e);
+
+                
+               
             }
             // Agregar el arreglo de productos  a la solicitud
             request.setAttribute("predicadores", Predicadores);
@@ -273,7 +267,6 @@ public class ControladorPredicadores extends HttpServlet {
      */
     private void buscar_for_editar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //Datos de la conexion
-       
 
         //Objetos para manipular la conexion y los datos
         Connection con = null;//Objeto para la conexion
@@ -284,7 +277,7 @@ public class ControladorPredicadores extends HttpServlet {
         //Objeto Usuario, donde se guardará la información del registro a editar
         Predicador e = null;
         try {
-            
+
             con = conBD.getCConexion();
             System.out.println("Conectado ...");
             //OBTENER EL DATO A CONSULTAR
@@ -298,21 +291,17 @@ public class ControladorPredicadores extends HttpServlet {
 
             // VER SI HAY RESULTADODOS
             while (resultado.next()) {
-                e = new Predicador(resultado.getInt(1), resultado.getString(2),resultado.getString(3),resultado.getString(4),resultado.getString(5),resultado.getString(6),
-                        resultado.getString(7),resultado.getString(8),resultado.getString(9),resultado.getString(10),resultado.getString(11));
-                
-                                break; //debe haber un solo registro.
+                e = new Predicador(resultado.getInt(1), resultado.getString(2), resultado.getString(3), resultado.getString(4), resultado.getString(5), resultado.getString(6),
+                        resultado.getString(7), resultado.getString(8), resultado.getString(9), resultado.getString(10), resultado.getString(11));
+
+                break; //debe haber un solo registro.
             }
             // Agregar el producto a la solicitud
             request.setAttribute("predicador", e);
 
-            
-
             //Ejecutar sentencia
             sentencia = con.createStatement();
             resultado = sentencia.executeQuery(sql);
-
-           
 
             //redirigir la solicitud a la página JSP
             request.getRequestDispatcher("/NewEditPredicador.jsp").include(request, response);
@@ -332,30 +321,25 @@ public class ControladorPredicadores extends HttpServlet {
 
     private void modificar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //Obtener los datos a modificar.
-       
-       String cedula = request.getParameter("id");
+
+        String cedula = request.getParameter("id");
         String nombre = request.getParameter("nombre");
-        String genero = request.getParameter("gen");
-         String ecivil = request.getParameter("ecivil");
-          String fnacimiento = request.getParameter("fnac");
-           String dir = request.getParameter("dir");
-            String tel = request.getParameter("tel");
-            String cel = request.getParameter("cel");
-            String email = request.getParameter("email");
-            String pais = request.getParameter("pais");
-          
-             
-        
-      
+        String genero = request.getParameter("cbgenero");
+        String ecivil = request.getParameter("ecivil");
+        String fnacimiento = request.getParameter("fnac");
+        String dir = request.getParameter("dir");
+        String tel = request.getParameter("tel");
+        String cel = request.getParameter("cel");
+        String email = request.getParameter("email");
+        String pais = request.getParameter("pais");
 
         RequestDispatcher vista;
-        
+
         //Objetos para manipular la conexion y los datos
         Connection con = null;//Objeto para la conexion
         Statement sentencia = null;//Objeto para definir y ejecutar las consultas sql
         String sql = "";
 
-       
         try {
             //ESTABLECER CONEXION
             //con = DriverManager.getConnection(urlDB, userBD, passBD);
@@ -365,15 +349,14 @@ public class ControladorPredicadores extends HttpServlet {
             //Definición de Sentencia SQL
             sql = "UPDATE predicadores SET nombre='" + nombre + "', "
                     + "genero= '" + genero + "',"
-                     + "estadocivil='" + ecivil + "',"
-                     + "fecha_nacimiento='" + fnacimiento + "',"
-                     + "direccion='" + dir + "',"
-                     + "telefono='" + tel + "',"
-                     + "celular ='" + cel + "',"
-                     + "email='" + email + "',"
-                     + "pais='" + pais + "'"
-                    
-                     + "WHERE cedula=" + cedula + "";
+                    + "estadocivil='" + ecivil + "',"
+                    + "fecha_nacimiento='" + fnacimiento + "',"
+                    + "direccion='" + dir + "',"
+                    + "telefono='" + tel + "',"
+                    + "celular ='" + cel + "',"
+                    + "email='" + email + "',"
+                    + "pais='" + pais + "'"
+                    + "WHERE cedula=" + cedula + "";
 
             //Ejecutar sentencia
             sentencia = con.createStatement();
@@ -405,25 +388,22 @@ public class ControladorPredicadores extends HttpServlet {
         sesionOk.invalidate();//se destruye la sesión
         response.sendRedirect("index.jsp");
     }
-    
-    
-     public String fecha(){
-                String fecha="";
-                Calendar c1 = new GregorianCalendar();
-                String dia = Integer.toString(c1.get(Calendar.DATE));
-                String mes = Integer.toString(c1.get(Calendar.MONTH)+1);
-                String anio= Integer.toString(c1.get(Calendar.YEAR));
-                if(c1.get(Calendar.DATE)<10){
-                        dia="0".concat(dia);
-                }
-                if(c1.get(Calendar.MONTH)<10){
-                        mes="0".concat(mes);
-                }
-                //String[] fecha={dia,mes,anio};
-                return dia.concat("/").concat(mes).concat("/").concat(anio);
-        }
 
-     
+    public String fecha() {
+        String fecha = "";
+        Calendar c1 = new GregorianCalendar();
+        String dia = Integer.toString(c1.get(Calendar.DATE));
+        String mes = Integer.toString(c1.get(Calendar.MONTH) + 1);
+        String anio = Integer.toString(c1.get(Calendar.YEAR));
+        if (c1.get(Calendar.DATE) < 10) {
+            dia = "0".concat(dia);
+        }
+        if (c1.get(Calendar.MONTH) < 10) {
+            mes = "0".concat(mes);
+        }
+        //String[] fecha={dia,mes,anio};
+        return dia.concat("/").concat(mes).concat("/").concat(anio);
+    }
 
     @Override
     public void init() throws ServletException {
@@ -440,9 +420,7 @@ public class ControladorPredicadores extends HttpServlet {
         } catch (SQLException ex) {
             System.out.println("Error cerrando conexión... " + ex);
         }
-    
-        
+
     }
 
- 
 }

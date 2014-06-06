@@ -14,6 +14,8 @@ public class Predicador {
     
     String nombre, genero,estadocivil,fecha_nacimiento,direccion,telefono,celular,email,pais,fecha_ingreso;
     int cedula;
+    private String descripcionGenero;
+    private String descripcionEstadoCivil;
 
     public Predicador(int cedula, String nombre, String genero, String estadocivil, String fecha_nacimiento, String direccion, String telefono, String celular, String email, String pais, String fecha_ingreso) {
         this.nombre = nombre;
@@ -38,6 +40,7 @@ public class Predicador {
     }
 
     public void setGenero(String genero) {
+        
         this.genero = genero;
     }
 
@@ -82,6 +85,8 @@ public class Predicador {
     }
 
     public String getGenero() {
+        
+       
         return genero;
     }
 
@@ -121,6 +126,22 @@ public class Predicador {
         return cedula;
     }
     
+    public void setDescripcionGenero(String gen) {
+        this.descripcionGenero = gen;
+    }
     
+    public String getDescripcionGenero() {
+        return descripcionGenero;
+    }
+    
+    public String getDescripcionEstadoCivil() {
+        return descripcionEstadoCivil;
+    }
+    
+    public void  setDescripcionEstadoCivil(String Ecivil) {
+        this.descripcionEstadoCivil = Ecivil;
+    }
+
+   
     
 }

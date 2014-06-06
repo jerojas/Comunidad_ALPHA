@@ -95,6 +95,7 @@
                 <tr class="odd">                               
                     <%}%>
                     
+                    
                      <td>
                         <%= u.getCedula()%>
                     </td>
@@ -147,7 +148,7 @@
         </table>
         <br>
         <p style="text-align:center">
-            <a href="NewEditPredicador.jsp">Ingresar Seminario Nuevo </a>  
+            <a href="NewEditPredicador.jsp">Ingresar Predicador Nuevo </a>  
         </p>
         <p style="text-align:center;color: red">
             <%=mensaje%>
